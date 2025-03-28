@@ -1,0 +1,79 @@
+Complete Functional Website
+
+- Authentication
+- All pages
+
+Components
+
+----Navbar----
+
+- Fixed, Floating
+- Login Button should change to dashboard upon login
+
+----Hero Section----
+
+- Automate, Accelerate, Achieve should have blinking dot with some animation
+
+----Your Linked Url----
+
+- This should verify the linked url
+- Add some animation while verifying url
+- Once Verified comfetti animation should display
+- Once Verified smooth navitaion to Signup Page
+
+----Sign Up Page----
+
+- User's name, email id and Phone Number
+- Verify email using OTP
+- User should not signup unless email is verified
+- OTP should expire after 30 secs
+
+----Trusted Partners : Landing Page----
+
+- Add right to left and left to right animations with company names
+
+----Hundred apply for same job : Landing Page----
+
+- Add sample image/Video
+- Get Started should redirect to hero section
+
+----We do everything For you : Landing Page----
+
+- Animation and design should be as per video
+- Get Started should redirect to hero section
+
+----Get Hired : Landing Page----
+
+- different Cards as per design in the video, this should use framer motion
+- Explore now button should redirect to search for jobs
+- Start posting should navigate to start hiring
+
+----Real Stories Real Impact: Landing Page----
+
+- design should be as per video
+- This should render sample videos
+
+----FAQ : Landing Page----
+
+- design should be as per video
+
+----Need Help : Landing Page----
+
+- Button click should open the 3rd party email provider
+- The email provider should contain the email in senders address
+
+----Footer : Landing Page----
+
+- All links should be functional, including social media icons
+
+----Page Title----
+
+- Page Title should display user name(Ex : Career Accelerator | User Name)
+
+----Data Base----
+
+- Save all user's details to DB
+
+----Notifications----
+
+- Once Signup is completed
