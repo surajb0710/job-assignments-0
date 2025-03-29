@@ -1,5 +1,15 @@
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
+
 const App = () => {
-  return <h1>Hello</h1>;
+  return (
+    <>
+      <Navbar />
+      <HomePage />
+      <Footer />
+    </>
+  );
 };
 
 export default App;
