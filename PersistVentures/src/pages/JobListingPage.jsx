@@ -1,7 +1,7 @@
 import React from 'react';
 
-const JobListing = () => {
+const JobListingPage = () => {
   return <div>JobListing</div>;
 };
 
-export default JobListing;
+export default JobListingPage;

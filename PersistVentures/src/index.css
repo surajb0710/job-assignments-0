@@ -92,3 +92,7 @@ body {
     }
   }
 }
+
+.otp-container > div {
+  justify-content: space-between;
+}
