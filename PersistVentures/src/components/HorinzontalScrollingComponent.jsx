@@ -4,12 +4,13 @@ import { partners } from '../assets/assets';
 const HorizontalScroll = ({ direction }) => {
   const images = [
     partners.amazon,
-    partners.godaddy,
-    partners.google,
-    partners.flash,
-    partners.snowflake,
-    partners.hitech,
+    partners.atlantic,
+    partners.leafe,
+    partners.mindfullness,
+    partners.monochrome,
     partners.invert,
+    partners.hitech,
+    partners.flash,
   ];
 
   return direction === 'left-to-right' ? (
@@ -24,13 +25,12 @@ const HorizontalScroll = ({ direction }) => {
       <motion.div
         style={{
           display: 'flex',
-          gap: '20px',
+          gap: '40px',
           minWidth: '200%',
         }}
         animate={{ x: ['-100%', '0%', '100%'] }}
         transition={{ repeat: Infinity, duration: 50, ease: 'linear' }}
       >
-        {/* Duplicate images for seamless looping */}
         {[...images, ...images, ...images, ...images].map((src, index) => (
           <img
             key={index}
@@ -54,13 +54,12 @@ const HorizontalScroll = ({ direction }) => {
       <motion.div
         style={{
           display: 'flex',
-          gap: '20px',
+          gap: '40px',
           minWidth: '200%',
         }}
         animate={{ x: ['0%', '-100%'] }}
         transition={{ repeat: Infinity, duration: 50, ease: 'linear' }}
       >
-        {/* Duplicate images for seamless looping */}
         {[...images, ...images, ...images, ...images].map((src, index) => (
           <img
             key={index}

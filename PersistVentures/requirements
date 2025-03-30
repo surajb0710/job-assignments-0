@@ -7,12 +7,12 @@ Components
 
 ----Navbar----
 
-- Fixed, Floating
+- Fixed, Floating......................DONE
 - Login Button should change to dashboard upon login
 
 ----Hero Section----
 
-- Automate, Accelerate, Achieve should have blinking dot with some animation
+- Automate, Accelerate, Achieve should have blinking dot with some animation......................DONE
 
 ----Your Linked Url----
 
@@ -77,3 +77,9 @@ Components
 ----Notifications----
 
 - Once Signup is completed
+
+//https://bpqhyuekxyzgvumdgycr.supabase.co/storage/v1/object/public/testimonies/36c7e471-774a-4a9c-8d24-c107dd3699cc.mp4
+
+//https://bpqhyuekxyzgvumdgycr.supabase.co/storage/v1/object/public/testimonies/5e380c20-024f-4552-a77f-25e8f2455c26.mp4
+
+//https://bpqhyuekxyzgvumdgycr.supabase.co/storage/v1/object/public/testimonies/885b4337-0511-48da-b084-7b711ac74195.mp4

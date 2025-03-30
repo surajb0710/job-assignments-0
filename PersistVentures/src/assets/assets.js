@@ -1,12 +1,11 @@
-import amazon from './svgs/amazon.svg';
-import google from './svgs/google.svg';
-import godaddy from './svgs/Godaddy.svg';
-import wechat from './svgs/wechat.svg';
-import groupon from './svgs/groupon.svg';
+import amazon from './svgs/amazon.png';
+import atlantic from './svgs/atlantic.svg';
 import flash from './svgs/flash.svg';
-import hitech from './images/hitech.png';
-import invert from './images/invert.png';
-import snowflake from './images/snowflake.png';
+import hitech from './svgs/hitech.svg';
+import invert from './svgs/invert.svg';
+import leafe from './svgs/leafe.svg';
+import mindfullness from './svgs/mindfullness.svg';
+import monochrome from './svgs/monochrome.svg';
 
 import linkedin from './images/linkedin.png';
 import twitter from './images/twitter.png';
@@ -19,11 +18,10 @@ import person4 from './images/people/person4.jpg';
 
 export const partners = {
   amazon,
-  google,
-  godaddy,
-  wechat,
-  groupon,
-  snowflake,
+  atlantic,
+  leafe,
+  mindfullness,
+  monochrome,
   invert,
   hitech,
   flash,
