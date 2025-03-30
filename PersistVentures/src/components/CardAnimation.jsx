@@ -34,7 +34,7 @@ const JobCard = () => {
         <p className="text-white text-[12px] flex gap-1">
           <span>$</span>1,00,000
         </p>
-        <p className="text-white text-[12px] flex gap-2 items-center relative">
+        <div className="text-white text-[12px] flex gap-2 items-center relative">
           <div className="relative h-3 w-3">
             <img
               src={globe}
@@ -43,7 +43,7 @@ const JobCard = () => {
             />
           </div>
           WorldWide
-        </p>
+        </div>
       </div>
       <button className="w-max text-sm bg-[#7e6bd2] px-5 py-2 rounded-xl border-white shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer">
         View Details

@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import search from '../assets/images/search.png';
+import { launchConfetti } from '../utils/confettiUtils';
 
 const HeroComponent = () => {
+  const [value, setValue] = useState('');
+
+  const verifyLinkedInURL = (e) => {
+    e.preventDefault();
+
+    const linkedInRegex =
+      /^(https?:\/\/)?(www\.)?linkedin\.com\/(in|company)\/[a-zA-Z0-9-_.]+\/?$/;
+
+    if (linkedInRegex.test(value)) {
+      launchConfetti();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center mt-10 w-200 px-15 gap-y-8">
       <div className="relative flex justify-center items-center gap-4 border border-white h-10 rounded-[20px] w-max px-5 shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
@@ -24,16 +38,22 @@ const HeroComponent = () => {
           Just drop your linkedin profile link below, and we will guide you
           through the journey
         </p>
+
         <form
-          action=""
+          onSubmit={verifyLinkedInURL}
           className="flex justify-between items-center gap-2 w-full"
         >
           <input
             type="text"
             placeholder="Paste your Linkedin Url here..."
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             className="h-10 rounded-[20px] grow px-5 shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm"
           />
-          <button className="text-base bg-[#7e6bd2] px-5 h-12 rounded-[24px] shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer">
+          <button
+            type="submit"
+            className="text-base bg-[#7e6bd2] px-5 h-12 rounded-[24px] shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer"
+          >
             Check now
           </button>
         </form>
@@ -43,3 +63,5 @@ const HeroComponent = () => {
 };
 
 export default HeroComponent;
+
+//https://www.linkedin.com/in/suraj-bhujade/
