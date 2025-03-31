@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import search from '../assets/images/search.png';
 import { launchConfetti } from '../utils/confettiUtils';
+import { useNavigate } from 'react-router-dom';
 
 const HeroComponent = () => {
   const [value, setValue] = useState('');
+  const navigate = useNavigate();
 
   const verifyLinkedInURL = (e) => {
     e.preventDefault();
@@ -13,13 +15,13 @@ const HeroComponent = () => {
 
     if (linkedInRegex.test(value)) {
       launchConfetti();
+      navigate('/signup');
     }
   };
 
   return (
     <div className="flex flex-col items-center mt-10 w-200 px-15 gap-y-8">
       <div className="relative flex justify-center items-center gap-4 border border-white h-10 rounded-[20px] w-max px-5 shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
-        {/* <div className="flashing"></div> */}
         <div className="absolute flashing w-[30px] h-[30px] cursor-default left-[10px] m-auto z-10"></div>
         <span className="ml-7 text-sm">Automate</span>
         <span className="text-sm">Accelerate</span>

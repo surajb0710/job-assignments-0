@@ -1,34 +1,58 @@
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import JobListingPage from './pages/JobListingPage';
 import CandidateListingPage from './pages/CandidateListingPage';
 import SignUpPage from './pages/SignUpPage';
 import JobModel from './components/JobModel';
 import { AnimatePresence } from 'framer-motion';
+import DashboardPage from './pages/DashboardPage';
+import {
+  PrivateRouteForAuthUser,
+  PrivateRouteForUnAuthUser,
+} from './utils/PrivateRoute';
+import ScrollToTop from './utils/ScrollToTop';
 
 const App = () => {
-  const currentPath = window.location.pathname;
-  console.log('current Path', currentPath);
-
   return (
     <>
       <BrowserRouter>
-        {currentPath !== '/login' && currentPath !== '/signup' && <Navbar />}
-        <AnimatePresence>
-          <JobModel />
-        </AnimatePresence>
+        <AppLayout />
+      </BrowserRouter>
+    </>
+  );
+};
+
+const AppLayout = () => {
+  const location = useLocation();
+
+  return (
+    <>
+      {location.pathname !== '/login' && location.pathname !== '/signup' && (
+        <Navbar />
+      )}
+      <AnimatePresence>
+        <JobModel />
+      </AnimatePresence>
+      <ScrollToTop>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
+          <Route element={<PrivateRouteForAuthUser />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+          </Route>
+          <Route element={<PrivateRouteForUnAuthUser />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
           <Route path="/jobs" element={<JobListingPage />} />
           <Route path="/candidates" element={<CandidateListingPage />} />
         </Routes>
-        {currentPath !== '/login' && currentPath !== '/signup' && <Footer />}
-      </BrowserRouter>
+      </ScrollToTop>
+      {location.pathname !== '/login' && location.pathname !== '/signup' && (
+        <Footer />
+      )}
     </>
   );
 };

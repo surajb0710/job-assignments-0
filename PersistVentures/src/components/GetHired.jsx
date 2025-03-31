@@ -7,6 +7,7 @@ import rocket from '../assets/images/rocket.png';
 import target from '../assets/images/target.png';
 import ScrollTriggered from './CardAnimation';
 import AnimatedJobCards from './CardAnimation';
+import { Link } from 'react-router-dom';
 
 const GetHired = () => {
   return (
@@ -34,6 +35,7 @@ const GetHired = () => {
             description="Optimize your LinkedIn to attract top recruiters."
             buttonLabel="Explore Now"
             img={rocket}
+            url={'/jobs'}
           />
         </div>
         <div className="h-100 overflow-clip relative col-start-2 col-end-3 row-start-1 row-end-2 rounded-2xl backdrop-blur-sm shadow-[inset_0px_2px_20px_-3px_rgba(_255,_255,_255,1)]">
@@ -70,6 +72,7 @@ const GetHired = () => {
             description="Access job-ready tech talent and fill roles effortlessly."
             buttonLabel="Start Posting"
             img={target}
+            url={'/candidates'}
           />
         </div>
       </div>
@@ -128,7 +131,7 @@ const JobCard = () => {
   );
 };
 
-const Card = ({ title, description, buttonLabel, img }) => {
+const Card = ({ title, description, buttonLabel, img, url }) => {
   return (
     <div className="h-full flex flex-col justify-between gap-4 p-6 rounded-2xl border-2 border-[#f7fafc90] shadow-[8px_8px_1px_1px_#615c8c]">
       <h3 className="text-3xl">
@@ -136,9 +139,11 @@ const Card = ({ title, description, buttonLabel, img }) => {
         <img src={img} alt="" className="h-8 w-8" />
       </h3>
       <p>{description}</p>
-      <button className="w-max text-base px-5 py-3 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
-        {buttonLabel}
-      </button>
+      <Link to={url}>
+        <button className="w-max text-base px-5 py-3 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
+          {buttonLabel}
+        </button>
+      </Link>
     </div>
   );
 };

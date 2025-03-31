@@ -55,20 +55,19 @@ export default Curious;
 const FAQ = ({ question, answer, showAnswer, toggleShow, index }) => {
   return showAnswer ? (
     <div>
-      <div className="flex items-center gap-5 px-10 py-10 rounded-t-2xl bg-green-200">
+      <div className="flex items-center gap-5 px-10 py-10 rounded-t-2xl bg-[#7c749e]">
         <p className="text-4xl">0{index + 1}</p>
         <div className="flex flex-col gap-5 grow">
           <p className="text-left">{question}</p>
           <p className="">{answer}</p>
         </div>
         <div
-          className="cursor-pointer rounded-full bg-green-50 p-2"
+          className="cursor-pointer rounded-full bg-[#bbafe840] p-2"
           onClick={() => toggleShow(index)}
         >
           <EyeOff size={24} />
         </div>
       </div>
-      <hr className="mb-5" />
     </div>
   ) : (
     <div>
@@ -76,13 +75,13 @@ const FAQ = ({ question, answer, showAnswer, toggleShow, index }) => {
         <p className="text-4xl">0{index + 1}</p>
         <p className="mr-auto  grow">{question} </p>
         <div
-          className="cursor-pointer rounded-full bg-green-50 p-2"
+          className="cursor-pointer rounded-full bg-[#bbafe840] p-2"
           onClick={() => toggleShow(index)}
         >
           <Eye size={24} />
         </div>
       </div>
-      <hr className="my-5" />
+      <hr className="my-5 h-0.5 text-[#544c7c] bg-[#544c7c]" />
     </div>
   );
 };

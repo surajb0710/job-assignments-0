@@ -3,9 +3,7 @@ import { useRef, useState } from 'react';
 import play from '../assets/images/play.png';
 import pause from '../assets/images/pause.png';
 
-export default function VideoPlayer({
-  src = 'https://st2.depositphotos.com/2572561/48535/v/600/depositphotos_485352334-stock-video-vertical-footage-political-party-speaker.mp4',
-}) {
+export default function VideoPlayer({ src }) {
   //https://assets.mixkit.co/j895u6t27rx6okbipf5x18crtpim
 
   //https://st2.depositphotos.com/2572561/47892/v/600/depositphotos_478921772-stock-video-vertical-video-female-car-portrait.mp4
@@ -29,8 +27,8 @@ export default function VideoPlayer({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 relative">
-      <video ref={videoRef} src={src} className="w-full h-auto" playsInline />
+    <div className="flex flex-col items-center gap-2 relative w-full h-150 rounded-4xl overflow-clip">
+      <video ref={videoRef} src={src} className="" playsInline />
       <button
         onClick={togglePlayPause}
         className="p-2 bg-black rounded-xl border border-white absolute bottom-4 right-4 cursor-pointer"

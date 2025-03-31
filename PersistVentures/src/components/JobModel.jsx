@@ -26,9 +26,6 @@ const JobModel = () => {
               exit={{ y: -50, opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              {/* <div className="max-w-full flex items-center justify-center"> */}
-              {/* <div className="fixed top-0 z-50 px-20"> */}
-              {/* <div className="relative bg-gradient my-10 gap-5 px-10 py-5 flex flex-col justify-center rounded-2xl shadow-[inset_0px_0px_7px_1px_#f7fafc90]"> */}
               <button
                 type="button"
                 className="absolute right-5 top-5 p-2 bg-[#bbafe840] rounded-2xl cursor-pointer"
@@ -149,9 +146,6 @@ const JobModel = () => {
               >
                 Apply Now
               </button>
-              {/* </div> */}
-              {/* </div> */}
-              {/* </div> */}
             </motion.div>
           </motion.div>
         </motion.div>

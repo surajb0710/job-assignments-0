@@ -3,6 +3,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import OtpInput from 'react-otp-input';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const LoginPage = () => {
   const [otpSent, setOtpSent] = useState(false);
@@ -10,6 +12,8 @@ const LoginPage = () => {
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -34,16 +38,15 @@ const LoginPage = () => {
 
       try {
         if (!otpSent) {
-          // Send OTP request to backend
           const response = await axios.post(
             'http://localhost:5000/api/send-otp',
             { email: values.email }
           );
+          console.log(response);
           setOtpSent(true);
           setTimeLeft(30);
           setIsResendDisabled(true);
         } else {
-          // Verify OTP request to backend
           const response = await axios.post(
             'http://localhost:5000/api/verify-otp',
             {
@@ -54,8 +57,10 @@ const LoginPage = () => {
 
           if (response.data.success) {
             console.log('User authenticated!');
+            localStorage.setItem('authToken', response.data.token);
             resetForm();
             setOtpSent(false);
+            navigate('/dashboard');
           } else {
             setErrorMessage(response.data.message);
           }
@@ -88,7 +93,6 @@ const LoginPage = () => {
         )}
 
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-          {/* Email Input */}
           <div>
             <label htmlFor="email">Email Address</label>
             <input
@@ -107,7 +111,6 @@ const LoginPage = () => {
             )}
           </div>
 
-          {/* OTP Input - Show only if OTP is sent */}
           {otpSent && (
             <div className="otp-container">
               <label htmlFor="otp">Enter OTP</label>
@@ -166,6 +169,14 @@ const LoginPage = () => {
             {loading ? 'Processing...' : otpSent ? 'Verify OTP' : 'Send OTP'}
           </button>
         </form>
+        <Link to="/">
+          <button
+            type="button"
+            className="w-full flex gap-2 justify-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-3 rounded-xl"
+          >
+            <ArrowLeft /> Back to Home Page
+          </button>
+        </Link>
       </div>
     </div>
   );
