@@ -2,8 +2,12 @@ import React, { useRef, useMemo } from 'react';
 import globe from '../assets/images/globe.png';
 import linkedin from '../assets/images/linkedin.png';
 import { motion, useInView, useAnimation } from 'framer-motion';
+import { useDispatch } from 'react-redux';
+import { toggleModel } from '../features/jobModel/jobModelSlice';
 
 const JobCard = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="bg-black rounded-2xl p-6 flex flex-col gap-3 border border-white">
       <div className="flex gap-3">
@@ -45,7 +49,10 @@ const JobCard = () => {
           WorldWide
         </div>
       </div>
-      <button className="w-max text-sm bg-[#7e6bd2] px-5 py-2 rounded-xl border-white shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer">
+      <button
+        onClick={() => dispatch(toggleModel())}
+        className="w-max text-sm bg-[#7e6bd2] px-5 py-2 rounded-xl border-white shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer"
+      >
         View Details
       </button>
     </div>

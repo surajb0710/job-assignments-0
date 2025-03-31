@@ -160,7 +160,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full self-center text-base bg-[#7e6bd2] px-5 py-3 rounded-xl"
+            className="w-full self-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-3 rounded-xl"
             disabled={loading}
           >
             {loading ? 'Processing...' : otpSent ? 'Verify OTP' : 'Send OTP'}

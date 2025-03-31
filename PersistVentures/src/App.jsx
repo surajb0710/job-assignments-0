@@ -6,14 +6,19 @@ import LoginPage from './pages/LoginPage';
 import JobListingPage from './pages/JobListingPage';
 import CandidateListingPage from './pages/CandidateListingPage';
 import SignUpPage from './pages/SignUpPage';
+import JobModel from './components/JobModel';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const currentPath = window.location.pathname;
   console.log('current Path', currentPath);
+  const showJobModel = useSelector((state) => state.jobModel.showJobModel);
+
   return (
     <>
       <BrowserRouter>
         {currentPath !== '/login' && currentPath !== '/signup' && <Navbar />}
+        {showJobModel && <JobModel />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
