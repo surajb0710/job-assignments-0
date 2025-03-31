@@ -170,7 +170,7 @@ const JobListingPage = () => {
 
   return (
     <main className="mt-10">
-      <div className="fixed w-100 flex flex-col gap-5 p-8 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90]">
+      <div className="fixed w-100 flex flex-col gap-5 p-8 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] bg-gradient">
         <div>
           <h3>Skills</h3>
           <Multiselect
@@ -220,7 +220,7 @@ const JobCard = ({ job }) => {
   }
 
   return (
-    <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3">
+    <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3 bg-gradient">
       <div>
         <h3 className="mb-1 text-lg">{job.title}</h3>
         <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
