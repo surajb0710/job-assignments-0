@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -8,9 +9,15 @@ const Navbar = () => {
         <img src={logo} alt="" height={80} width={150} />
 
         <ul className="flex justify-between items-center gap-10">
-          <li className="text-base">Home</li>
-          <li className="text-base">Search for Jobs</li>
-          <li className="text-base">Start Hiring</li>
+          <Link to="/">
+            <li className="text-base">Home</li>
+          </Link>
+          <Link to="/jobs">
+            <li className="text-base">Search for Jobs</li>
+          </Link>
+          <Link to="/candidates">
+            <li className="text-base">Start Hiring</li>
+          </Link>
         </ul>
         <button className="text-base bg-[#7e6bd2] px-5 py-3 rounded-xl shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer">
           Login
