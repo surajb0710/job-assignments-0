@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import JobListingPage from './pages/JobListingPage';
 import CandidateListingPage from './pages/CandidateListingPage';
+import SignUpPage from './pages/SignUpPage';
 
 const App = () => {
   const currentPath = window.location.pathname;
@@ -12,14 +13,15 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        {currentPath !== '/login' && <Navbar />}
+        {currentPath !== '/login' && currentPath !== '/signup' && <Navbar />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/jobs" element={<JobListingPage />} />
           <Route path="/candidates" element={<CandidateListingPage />} />
         </Routes>
-        {currentPath !== '/login' && <Footer />}
+        {currentPath !== '/login' && currentPath !== '/signup' && <Footer />}
       </BrowserRouter>
     </>
   );
