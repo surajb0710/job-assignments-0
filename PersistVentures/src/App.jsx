@@ -14,6 +14,12 @@ import {
   PrivateRouteForUnAuthUser,
 } from './utils/PrivateRoute';
 import ScrollToTop from './utils/ScrollToTop';
+import AboutUsPage from './pages/AboutUsPage';
+import OurTeamPage from './pages/OurTeamPage';
+import BlogsPage from './pages/BlogsPage';
+import FAQsPage from './pages/FAQsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 
 const App = () => {
   return (
@@ -48,6 +54,15 @@ const AppLayout = () => {
           </Route>
           <Route path="/jobs" element={<JobListingPage />} />
           <Route path="/candidates" element={<CandidateListingPage />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/ourteam" element={<OurTeamPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/faqs" element={<FAQsPage />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
+          <Route
+            path="/termsandconditions"
+            element={<TermsAndConditionsPage />}
+          />
         </Routes>
       </ScrollToTop>
       {location.pathname !== '/login' && location.pathname !== '/signup' && (
