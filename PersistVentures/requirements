@@ -23,10 +23,10 @@ Components
 
 ----Sign Up Page----
 
-- User's name, email id and Phone Number
-- Verify email using OTP
-- User should not signup unless email is verified
-- OTP should expire after 30 secs
+- User's name, email id and Phone Number......................DONE
+- Verify email using OTP......................DONE
+- User should not signup unless email is verified......................DONE
+- OTP should expire after 30 secs......................DONE
 
 ----Trusted Partners : Landing Page----
 
@@ -44,27 +44,27 @@ Components
 
 ----Get Hired : Landing Page----
 
-- different Cards as per design in the video, this should use framer motion
-- Explore now button should redirect to search for jobs
-- Start posting should navigate to start hiring
+- different Cards as per design in the video, this should use framer motion......................DONE
+- Explore now button should redirect to search for jobs......................DONE
+- Start posting should navigate to start hiring......................DONE
 
 ----Real Stories Real Impact: Landing Page----
 
-- design should be as per video
-- This should render sample videos
+- design should be as per video......................DONE
+- This should render sample videos......................DONE
 
 ----FAQ : Landing Page----
 
-- design should be as per video
+- design should be as per video......................DONE
 
 ----Need Help : Landing Page----
 
-- Button click should open the 3rd party email provider
-- The email provider should contain the email in senders address
+- Button click should open the 3rd party email provider......................DONE
+- The email provider should contain the email in senders address......................DONE
 
 ----Footer : Landing Page----
 
-- All links should be functional, including social media icons
+- All links should be functional, including social media icons......................DONE
 
 ----Page Title----
 
@@ -72,11 +72,11 @@ Components
 
 ----Data Base----
 
-- Save all user's details to DB
+- Save all user's details to DB......................DONE
 
 ----Notifications----
 
-- Once Signup is completed
+- Once Signup is completed......................DONE
 
 //https://bpqhyuekxyzgvumdgycr.supabase.co/storage/v1/object/public/testimonies/36c7e471-774a-4a9c-8d24-c107dd3699cc.mp4
 

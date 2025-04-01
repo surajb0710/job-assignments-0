@@ -22,6 +22,7 @@ const JobListingPage = () => {
 
   const onSelectExperience = (selectedList) =>
     setSelectedExperience(selectedList);
+
   const onRemoveExperience = (selectedList) =>
     setSelectedExperience(selectedList);
 
@@ -167,6 +168,8 @@ const JobListingPage = () => {
     };
     filterJobs(jobs);
   }, [selectedSkills, selectedLocations, selectedExperience, jobs]);
+
+  console.log('skills', skills);
 
   return (
     <main className="mt-10">

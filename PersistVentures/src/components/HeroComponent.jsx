@@ -16,6 +16,7 @@ const HeroComponent = () => {
     if (linkedInRegex.test(value)) {
       launchConfetti();
       navigate('/signup');
+      localStorage.setItem('linkedInUrl', value);
     }
   };
 

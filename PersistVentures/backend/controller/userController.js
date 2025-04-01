@@ -1,5 +1,5 @@
 // import jwt from 'jsonwebtoken';
-import userModel from '../models/userModel.js';
+import { userModel, skillEnum } from '../models/userModel.js';
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
@@ -32,14 +32,32 @@ const loginUser = async (req, res) => {
 // Route for user register
 const registerUser = async (req, res) => {
   try {
-    const { fullName, email, phoneNumber } = req.body;
+    const {
+      fullName,
+      email,
+      phoneNumber,
+      linkedInUrl,
+      skills,
+      experience,
+      professionalSummary,
+    } = req.body;
+
+    console.log('-------', req.body);
     // checking if user already exists
     const userExists = await userModel.findOne({ email });
     if (userExists) {
       res.json({ success: false, message: 'User already exists' });
       return;
     }
-    const newUser = new userModel({ fullName, email, phoneNumber });
+    const newUser = new userModel({
+      fullName,
+      email,
+      phoneNumber,
+      linkedInUrl,
+      skills,
+      experience,
+      professionalSummary,
+    });
 
     const user = await newUser.save();
 
@@ -50,4 +68,8 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser };
+const getSkills = async (req, res) => {
+  res.json(skillEnum);
+};
+
+export { loginUser, registerUser, getSkills };
