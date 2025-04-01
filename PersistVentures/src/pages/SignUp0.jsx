@@ -267,10 +267,6 @@ const SignUpPage = () => {
                   border: 'none', // Corrected: Added quotes around 'none'
                   fontSize: '14px', // Corrected: Added quotes around '10px'
                 },
-                inputField: {
-                  // To change input field position or margin
-                  // margin: '5px',
-                },
                 chips: {
                   // To change css chips(Selected options)
                   background: '#9793b5',

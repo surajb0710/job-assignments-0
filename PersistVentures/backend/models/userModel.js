@@ -66,23 +66,26 @@ const skillEnum = [
   'Serverless Computing',
 ];
 
-const userSchema = new mongoose.Schema({
-  fullName: { type: String, require: true },
-  email: { type: String, require: true, unique: true },
-  phoneNumber: { type: String, require: true },
-  linkedInUrl: { type: String },
-  skills: {
-    type: [
-      {
-        type: String,
-        enum: skillEnum,
-      },
-    ],
-    require: true,
+const userSchema = new mongoose.Schema(
+  {
+    fullName: { type: String, require: true },
+    email: { type: String, require: true, unique: true },
+    phoneNumber: { type: String, require: true },
+    linkedInUrl: { type: String },
+    skills: {
+      type: [
+        {
+          type: String,
+          enum: skillEnum,
+        },
+      ],
+      require: true,
+    },
+    experience: { type: String, require: true },
+    professionalSummary: { type: String },
   },
-  experience: { type: String, require: true },
-  professionalSummary: { type: String },
-});
+  { timestamps: true }
+);
 
 const userModel = mongoose.model.user || mongoose.model('user', userSchema);
 

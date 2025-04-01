@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Multiselect from 'multiselect-react-dropdown';
 import { MapPin, Briefcase, Banknote } from 'lucide-react';
 import { formatDistanceToNow, parse } from 'date-fns';
+import axios from 'axios';
 
 const JobListingPage = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -171,6 +172,17 @@ const JobListingPage = () => {
 
   console.log('skills', skills);
 
+  useEffect(() => {
+    const applyForJob = async () => {
+      const response = await axios.get(
+        'http://localhost:5000/api/jobapplication'
+      );
+      console.log(response);
+    };
+
+    applyForJob();
+  }, []);
+
   return (
     <main className="mt-10">
       <div className="fixed w-100 flex flex-col gap-5 p-8 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] bg-gradient">
@@ -225,7 +237,12 @@ const JobCard = ({ job }) => {
   return (
     <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3 bg-gradient">
       <div>
-        <h3 className="mb-1 text-lg">{job.title}</h3>
+        <div className="flex justify-between">
+          <h3 className="mb-1 text-lg">{job.title}</h3>
+          <button className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
+            Apply Now
+          </button>
+        </div>
         <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
       </div>
       <div className="flex gap-6">

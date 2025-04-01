@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPin, Briefcase, Banknote, Clock8, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModel } from '../features/jobModel/jobModelSlice';
+import { toggleModel } from '../features/jobModelSlice';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const JobModel = () => {

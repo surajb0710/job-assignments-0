@@ -3,7 +3,7 @@ import globe from '../assets/images/globe.png';
 import linkedin from '../assets/images/linkedin.png';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { toggleModel } from '../features/jobModel/jobModelSlice';
+import { toggleModel } from '../features/jobModelSlice';
 
 const JobCard = () => {
   const dispatch = useDispatch();

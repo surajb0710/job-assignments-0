@@ -25,7 +25,7 @@ const VideoSlider = () => {
     <div className="slider-container w-300">
       <Slider {...settings}>
         {testimonials.map((testimonial, index) => (
-          <div className="px-5 hover:scale-110">
+          <div className="px-5 hover:scale-110" key={index}>
             <VideoPlayer src={testimonial} key={index} />
           </div>
         ))}

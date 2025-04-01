@@ -21,6 +21,7 @@ import FAQsPage from './pages/FAQsPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import { Toaster } from 'react-hot-toast';
+import JobPostModel from './components/JobPostModel';
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const AppLayout = () => {
       )}
       <AnimatePresence>
         <JobModel />
+        <JobPostModel />
       </AnimatePresence>
       <ScrollToTop>
         <Routes>

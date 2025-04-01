@@ -23,14 +23,7 @@ body {
 }
 
 .bg-gradient {
-  background: linear-gradient(
-    to bottom,
-    #5c5489,
-    #3b3a54,
-    #1b1c1c,
-    #3f3a5f,
-    #1b1c1c
-  );
+  background: linear-gradient(to bottom, #5c5489, #3b3a54, #1b1c1c);
 }
 
 /* .flashing {

@@ -3,7 +3,7 @@ import search from '../assets/images/search.png';
 import { launchConfetti } from '../utils/confettiUtils';
 import { useNavigate } from 'react-router-dom';
 
-const HeroComponent = () => {
+const HeroComponent = ({ section1Ref }) => {
   const [value, setValue] = useState('');
   const navigate = useNavigate();
 
@@ -21,7 +21,10 @@ const HeroComponent = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-10 w-200 px-15 gap-y-8">
+    <div
+      className="flex flex-col items-center mt-10 w-200 px-15 gap-y-8 "
+      ref={section1Ref}
+    >
       <div className="relative flex justify-center items-center gap-4 border border-white h-10 rounded-[20px] w-max px-5 shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
         <div className="absolute flashing w-[30px] h-[30px] cursor-default left-[10px] m-auto z-10"></div>
         <span className="ml-7 text-sm">Automate</span>
