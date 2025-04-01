@@ -1,14 +1,14 @@
 Complete Functional Website
 
-- Authentication
-- All pages
+- Authentication......................DONE
+- All pages......................DONE
 
 Components
 
 ----Navbar----
 
 - Fixed, Floating......................DONE
-- Login Button should change to dashboard upon login
+- Login Button should change to dashboard upon login......................DONE
 
 ----Hero Section----
 
@@ -30,11 +30,11 @@ Components
 
 ----Trusted Partners : Landing Page----
 
-- Add right to left and left to right animations with company names
+- Add right to left and left to right animations with company names......................DONE
 
 ----Hundred apply for same job : Landing Page----
 
-- Add sample image/Video
+- Add sample image/Video......................DONE
 - Get Started should redirect to hero section
 
 ----We do everything For you : Landing Page----

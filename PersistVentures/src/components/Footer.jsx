@@ -38,7 +38,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-col gap-5">
             <Link to="/privacypolicy">
-              <p>FAPrivacy PolicyQs</p>
+              <p>Privacy Policy</p>
             </Link>
             <Link to="/termsandconditions">
               <p>Terms and Conditions</p>

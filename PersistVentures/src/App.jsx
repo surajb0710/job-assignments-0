@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import JobListingPage from './pages/JobListingPage';
 import CandidateListingPage from './pages/CandidateListingPage';
-import SignUpPage from './pages/SignUpPage';
+import SignUpPage from './pages/SignUp0';
 import JobModel from './components/JobModel';
 import { AnimatePresence } from 'framer-motion';
 import DashboardPage from './pages/DashboardPage';
@@ -20,6 +20,7 @@ import BlogsPage from './pages/BlogsPage';
 import FAQsPage from './pages/FAQsPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const AppLayout = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
       {location.pathname !== '/login' && location.pathname !== '/signup' && (
         <Navbar />
       )}

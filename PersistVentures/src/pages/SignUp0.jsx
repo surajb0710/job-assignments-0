@@ -5,13 +5,17 @@ import OtpInput from 'react-otp-input';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import toast from 'react-hot-toast';
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const navigate = useNavigate();
 
@@ -25,8 +29,15 @@ const LoginPage = () => {
   }, [timeLeft]);
 
   const formik = useFormik({
-    initialValues: { email: '', otp: '' },
+    initialValues: { fullName: '', phoneNumber: '', email: '', otp: '' },
     validationSchema: Yup.object({
+      fullName: Yup.string()
+        .min(5, 'Must be 5 characters or more')
+        .max(30, 'Must be 30 characters or less')
+        .required('Required'),
+      phoneNumber: Yup.string()
+        .matches(phoneRegExp, 'Phone number is not valid')
+        .required('Required'),
       email: Yup.string().email('Invalid email').required('Required'),
       otp: otpSent
         ? Yup.string().length(6, 'OTP must be 6 digits').required('Required')
@@ -42,7 +53,7 @@ const LoginPage = () => {
             'http://localhost:5000/api/send-otp',
             { email: values.email }
           );
-          console.log(response);
+          toast.success(response.data.message);
           setOtpSent(true);
           setTimeLeft(30);
           setIsResendDisabled(true);
@@ -56,11 +67,26 @@ const LoginPage = () => {
           );
 
           if (response.data.success) {
-            console.log('User authenticated!');
             localStorage.setItem('authToken', response.data.token);
-            resetForm();
-            setOtpSent(false);
-            navigate('/dashboard');
+
+            const registerResponse = await axios.post(
+              'http://localhost:5000/api/signup',
+              {
+                fullName: values.fullName,
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+              }
+            );
+
+            if (registerResponse.data.success) {
+              toast.success(registerResponse.data.message);
+              resetForm();
+              setOtpSent(false);
+              navigate('/dashboard');
+            } else {
+              toast.error(registerResponse.data.message);
+              navigate('/dashboard');
+            }
           } else {
             setErrorMessage(response.data.message);
           }
@@ -94,6 +120,40 @@ const LoginPage = () => {
 
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
           <div>
+            <label htmlFor="fullName">Full Name</label>
+            <br />
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Enter Full Name"
+              onChange={formik.handleChange}
+              value={formik.values.fullName}
+              onBlur={formik.handleBlur}
+              className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+            />
+            {formik.touched.fullName && (
+              <p className="errorMessage">{formik.errors.fullName}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="phoneNumber">Phone Number</label>
+            <br />
+            <input
+              type="number"
+              id="phoneNumber"
+              name="phoneNumber"
+              placeholder="Enter Phone Number"
+              onChange={formik.handleChange}
+              value={formik.values.phoneNumber}
+              onBlur={formik.handleBlur}
+              className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+            />
+            {formik.touched.phoneNumber && (
+              <p className="errorMessage">{formik.errors.phoneNumber}</p>
+            )}
+          </div>
+          <div>
             <label htmlFor="email">Email Address</label>
             <input
               type="email"
@@ -104,7 +164,7 @@ const LoginPage = () => {
               onBlur={formik.handleBlur}
               value={formik.values.email}
               disabled={otpSent}
-              className="w-full bg-transparent shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+              className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
             />
             {formik.touched.email && formik.errors.email && (
               <p className="text-red-500">{formik.errors.email}</p>
@@ -178,9 +238,9 @@ const LoginPage = () => {
           </button>
         </Link>
         <p className="text-sm text-center">
-          Dont have an account?
-          <Link to="/signup">
-            <span className="ml-1 text-[#7e6bd2]">Sign Up</span>
+          Already have an account?
+          <Link to="/login">
+            <span className="ml-1 text-[#7e6bd2]">Login</span>
           </Link>
         </p>
       </div>
@@ -188,4 +248,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

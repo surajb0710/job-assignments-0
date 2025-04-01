@@ -153,7 +153,7 @@ const SignUpPage = () => {
           </button>
         </form>
         <p className="text-sm text-center">
-          Already have an account?{' '}
+          Already have an account?
           <Link to="/login">
             <span className="ml-1 text-[#7e6bd2]">Login</span>
           </Link>
