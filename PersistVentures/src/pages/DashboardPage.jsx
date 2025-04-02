@@ -188,7 +188,7 @@ const DashboardPage = () => {
               <JobCard
                 job={job}
                 key={job._id}
-                applicantEmail={authUser.email}
+                authUser={authUser}
                 isRecruiter={formik.values.isRecruiter}
                 setIsApplying={setIsApplying}
                 setApiSuccess={setApiSuccess}

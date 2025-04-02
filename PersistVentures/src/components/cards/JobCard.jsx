@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const JobCard = ({
   job,
-  applicantEmail,
+  authUser,
   isRecruiter,
   setIsApplying,
   setApiSuccess,
@@ -19,9 +19,8 @@ const JobCard = ({
         const response = await axios.post(
           'http://localhost:5000/api/jobapplication',
           {
-            recruiterEmail: job.email,
-            title: job.title,
-            applicantEmail: applicantEmail,
+            job: job,
+            authUser: authUser,
           },
           {
             headers: {
@@ -38,8 +37,8 @@ const JobCard = ({
       }
     };
 
-    apply && applyForJob(job);
-  }, [job, apply, applicantEmail, setApiSuccess, setIsApplying]);
+    apply && applyForJob(job, authUser);
+  }, [job, apply, authUser, setApiSuccess, setIsApplying]);
 
   const handleMouseClick = () => {
     setApply(true);

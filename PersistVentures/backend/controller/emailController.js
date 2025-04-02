@@ -35,10 +35,9 @@ const sendInvitationForJobEmail = async (req, res) => {
 };
 
 const sendJobApplicationEmail = async (req, res) => {
-  const { recruiterEmail, title, applicantEmail } = req.body;
+  const { job, authUser } = req.body;
 
-  if (!recruiterEmail)
-    return res.status(400).json({ message: 'Email is required' });
+  if (!job.email) return res.status(400).json({ message: 'Email is required' });
 
   try {
     const __filename = fileURLToPath(import.meta.url);
@@ -50,11 +49,40 @@ const sendJobApplicationEmail = async (req, res) => {
     );
     let jobApplication = await fs.readFile(templatePath, 'utf-8');
 
+    jobApplication = jobApplication.replaceAll('[Job Title]', job.title);
+    jobApplication = jobApplication.replaceAll(
+      '[Company Name]',
+      job.companyName
+    );
+    jobApplication = jobApplication.replaceAll(
+      '[experience]',
+      authUser.experience
+    );
+    jobApplication = jobApplication.replaceAll('[skills]', authUser.skills);
+    jobApplication = jobApplication.replaceAll('[fullName]', authUser.fullName);
+    jobApplication = jobApplication.replaceAll('[email]', authUser.email);
+    jobApplication = jobApplication.replaceAll(
+      '[phoneNumber]',
+      authUser.phoneNumber
+    );
+    jobApplication = jobApplication.replaceAll(
+      '[linkedInUrl]',
+      authUser.linkedInUrl
+    );
+    jobApplication = jobApplication.replaceAll(
+      '[professionalSummary]',
+      authUser.professionalSummary
+    );
+    const skillsList = authUser.skills
+      .map((skill) => `<li>${skill}</li>`)
+      .join('\n');
+
+    jobApplication = jobApplication.replaceAll('[skills]', skillsList);
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: recruiterEmail,
-      subject: `Application for job position ${title}`,
-      // text: `Hi, I am interested in the job position and my email id is ${applicantEmail}`,
+      to: job.email,
+      subject: `Application for job position ${job.title}`,
       html: jobApplication,
     });
 
