@@ -35,7 +35,7 @@ const JobListingPage = () => {
     const getJobs = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/jobs`
+          `${import.meta.env.VITE_BACKEND_URL}/jobs`
         );
         setJobsList(response.data.sortedJobs);
       } catch (error) {
@@ -99,7 +99,7 @@ const JobListingPage = () => {
 
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/profile`,
+          `${import.meta.env.VITE_BACKEND_URL}/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -15,11 +15,6 @@ const JobPostModel = () => {
     (state) => state.jobPostModel.showJobPostModel
   );
 
-  // const [errorMessage, setErrorMessage] = useState('');
-  // const [loading, setLoading] = useState(false);
-
-  // const navigate = useNavigate();
-
   const [skillsArray, setSkillsArray] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
@@ -27,8 +22,10 @@ const JobPostModel = () => {
     const getSkills = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/skills`
+          `${import.meta.env.VITE_BACKEND_URL}/skills`
         );
+
+        console.log('------------', import.meta.env.VITE_BACKEND_URL);
 
         const formattedSkills = response.data.map((skill, index) => ({
           skills: skill,
@@ -60,7 +57,7 @@ const JobPostModel = () => {
         const skillsArray = values.skills.map((item) => item.skills);
 
         const jobPostingResponse = await axios.post(
-          `${import.meta.VITE_BACKEND_URL}/jobs`,
+          `${import.meta.env.VITE_BACKEND_URL}/jobs`,
           {
             title: values.title,
             companyName: values.companyName,

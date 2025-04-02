@@ -27,7 +27,7 @@ const SignUpPage = () => {
     const getSkills = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/skills`
+          `${import.meta.env.VITE_BACKEND_URL}/skills`
         );
 
         const formattedSkills = response.data.map((skill, index) => ({
@@ -92,7 +92,7 @@ const SignUpPage = () => {
       try {
         if (!otpSent) {
           const response = await axios.post(
-            `${import.meta.VITE_BACKEND_URL}/send-otp`,
+            `${import.meta.env.VITE_BACKEND_URL}/send-otp`,
             { email: values.email }
           );
           toast.success(response.data.message);
@@ -101,7 +101,7 @@ const SignUpPage = () => {
           setIsResendDisabled(true);
         } else {
           const response = await axios.post(
-            `${import.meta.VITE_BACKEND_URL}/verify-otp`,
+            `${import.meta.env.VITE_BACKEND_URL}/verify-otp`,
             {
               email: values.email,
               otp: values.otp,
@@ -114,7 +114,7 @@ const SignUpPage = () => {
             const skillsArray = values.skills.map((item) => item.skills);
 
             const registerResponse = await axios.post(
-              `${import.meta.VITE_BACKEND_URL}/signup`,
+              `${import.meta.env.VITE_BACKEND_URL}/signup`,
               {
                 fullName: values.fullName,
                 email: values.email,
@@ -153,7 +153,7 @@ const SignUpPage = () => {
   const handleResendOTP = async () => {
     setTimeLeft(30);
     setIsResendDisabled(true);
-    await axios.post(`${import.meta.VITE_BACKEND_URL}/send-otp`, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send-otp`, {
       email: formik.values.email,
     });
   };

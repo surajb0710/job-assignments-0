@@ -29,7 +29,7 @@ const DashboardPage = () => {
     const getSkills = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/skills`
+          `${import.meta.env.VITE_BACKEND_URL}/skills`
         );
 
         const formattedSkills = response.data.map((skill, index) => ({
@@ -50,7 +50,7 @@ const DashboardPage = () => {
     const getJobs = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/jobs`
+          `${import.meta.env.VITE_BACKEND_URL}/jobs`
         );
         setJobsList(response.data.sortedJobs);
       } catch (error) {
@@ -67,7 +67,7 @@ const DashboardPage = () => {
 
       try {
         const response = await axios.get(
-          `${import.meta.VITE_BACKEND_URL}/profile`,
+          `${import.meta.env.VITE_BACKEND_URL}/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -106,7 +106,7 @@ const DashboardPage = () => {
         const skillsArray = values.skills.map((item) => item.skills);
 
         const updateResponse = await axios.patch(
-          `${import.meta.VITE_BACKEND_URL}/profile`,
+          `${import.meta.env.VITE_BACKEND_URL}/profile`,
           {
             fullName: values.fullName,
             phoneNumber: values.phoneNumber,
