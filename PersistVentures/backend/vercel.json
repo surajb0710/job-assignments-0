@@ -2,8 +2,8 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "PersistVentures/backend/server.js"
+      "src": "/(.*)",
+      "dest": "/index.js"
     }
   ]
 }
