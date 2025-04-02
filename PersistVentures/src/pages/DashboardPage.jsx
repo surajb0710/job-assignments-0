@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import Multiselect from 'multiselect-react-dropdown';
+import { useDispatch } from 'react-redux';
+import { toggleModel } from '../features/jobPostModelSlice';
 
 const DashboardPage = () => {
   const [jobsList, setJobsList] = useState([]);
@@ -12,6 +14,8 @@ const DashboardPage = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [showDashboard, setShowDashboard] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getSkills = async () => {
@@ -79,6 +83,7 @@ const DashboardPage = () => {
       skills: selectedSkills,
       experience: authUser?.experience || '',
       professionalSummary: authUser?.professionalSummary || '',
+      isRecruiter: authUser?.isRecruiter || '',
     },
     enableReinitialize: true,
     onSubmit: async (values) => {
@@ -94,6 +99,7 @@ const DashboardPage = () => {
             skills: skillsArray,
             experience: values.experience,
             professionalSummary: values.professionalSummary,
+            isRecruiter: values.isRecruiter,
           },
           {
             headers: {
@@ -152,12 +158,25 @@ const DashboardPage = () => {
         >
           User Profile
         </p>
+        {formik.values.isRecruiter && (
+          <button
+            onClick={() => dispatch(toggleModel())}
+            className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
+          >
+            Post a Job
+          </button>
+        )}
       </div>
       {showDashboard && (
         <div className="flex-3/4 flex flex-col gap-5">
           {jobsList.length > 0 &&
-            jobsList.map((job, index) => (
-              <JobCard job={job} key={index} applicantEmail={authUser.email} />
+            jobsList.map((job) => (
+              <JobCard
+                job={job}
+                key={job._id}
+                applicantEmail={authUser.email}
+                isRecruiter={formik.values.isRecruiter}
+              />
             ))}
         </div>
       )}
@@ -190,7 +209,6 @@ const DashboardPage = () => {
               <div>
                 <label htmlFor="fullName">Phone Number</label>
                 <br />
-
                 <input
                   type="number"
                   id="phoneNumber"
@@ -281,6 +299,19 @@ const DashboardPage = () => {
                 {formik.touched.skills && (
                   <p className="errorMessage">{formik.errors.skills}</p>
                 )}
+              </div>
+              <div className="w-max flex gap-2 items-center px-4 py-3 mt-2 rounded-xl shadow-[inset_0px_0px_5px_1px_#f7fafc90]">
+                <input
+                  type="checkbox"
+                  id="isRecruiter"
+                  name="isRecruiter"
+                  onChange={formik.handleChange}
+                  value={formik.values.isRecruiter}
+                  onBlur={formik.handleBlur}
+                  className="w-5 h-5"
+                  checked={formik.values.isRecruiter}
+                />
+                <label htmlFor="recruiter">Are you a recruiter ?</label>
               </div>
               <div className="col-span-2">
                 <label htmlFor="professionalSummary">

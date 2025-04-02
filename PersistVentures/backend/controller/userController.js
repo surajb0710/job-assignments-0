@@ -24,6 +24,7 @@ const updateAuthUserProfile = async (req, res) => {
       skills,
       experience,
       professionalSummary,
+      isRecruiter,
     } = req.body;
 
     const updatedUser = await userModel.findOneAndUpdate(
@@ -34,6 +35,7 @@ const updateAuthUserProfile = async (req, res) => {
         skills,
         experience,
         professionalSummary,
+        isRecruiter,
       },
       { new: true, runValidators: true }
     );
@@ -86,6 +88,7 @@ const registerUser = async (req, res) => {
       skills,
       experience,
       professionalSummary,
+      isRecruiter,
     } = req.body;
 
     const userExists = await userModel.findOne({ email });
@@ -101,6 +104,7 @@ const registerUser = async (req, res) => {
       skills,
       experience,
       professionalSummary,
+      isRecruiter,
     });
 
     const user = await newUser.save();

@@ -64,6 +64,7 @@ const SignUpPage = () => {
       skills: [],
       experience: '',
       professionalSummary: '',
+      isRecruiter: false,
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
@@ -120,6 +121,7 @@ const SignUpPage = () => {
                 skills: skillsArray,
                 experience: values.experience,
                 professionalSummary: values.professionalSummary,
+                isRecruiter: values.isRecruiter,
               }
             );
 
@@ -279,6 +281,18 @@ const SignUpPage = () => {
             {formik.touched.skills && (
               <p className="errorMessage">{formik.errors.skills}</p>
             )}
+          </div>
+          <div className="w-max flex gap-2 items-center px-4 py-3 mt-2 rounded-xl shadow-[inset_0px_0px_5px_1px_#f7fafc90]">
+            <input
+              type="checkbox"
+              id="isRecruiter"
+              name="isRecruiter"
+              onChange={formik.handleChange}
+              value={formik.values.isRecruiter}
+              onBlur={formik.handleBlur}
+              className="w-5 h-5"
+            />
+            <label htmlFor="recruiter">Are you a recruiter ?</label>
           </div>
           <div className="col-span-2">
             <label htmlFor="professionalSummary">Professional Summary</label>

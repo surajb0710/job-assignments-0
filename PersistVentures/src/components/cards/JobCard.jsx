@@ -3,7 +3,7 @@ import { timeAgo } from '../../utils/utils';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const JobCard = ({ job, applicantEmail }) => {
+const JobCard = ({ job, applicantEmail, isRecruiter }) => {
   const [apply, setApply] = useState(false);
 
   useEffect(() => {
@@ -36,12 +36,14 @@ const JobCard = ({ job, applicantEmail }) => {
       <div>
         <div className="flex justify-between">
           <h3 className="mb-1 text-lg">{job.title}</h3>
-          <button
-            onClick={() => setApply(true)}
-            className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
-          >
-            Apply Now
-          </button>
+          {!isRecruiter && (
+            <button
+              onClick={() => setApply(true)}
+              className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
+            >
+              Apply Now
+            </button>
+          )}
         </div>
         <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
       </div>

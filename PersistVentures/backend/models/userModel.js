@@ -83,6 +83,7 @@ const userSchema = new mongoose.Schema(
     },
     experience: { type: String, require: true },
     professionalSummary: { type: String },
+    isRecruiter: { type: Boolean },
   },
   { timestamps: true }
 );
