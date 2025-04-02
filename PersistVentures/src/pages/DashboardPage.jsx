@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import Multiselect from 'multiselect-react-dropdown';
 import { useDispatch } from 'react-redux';
 import { toggleModel } from '../features/jobPostModelSlice';
+import RocketAnimation from '../animation/RocketAnimation';
 
 const DashboardPage = () => {
   const [jobsList, setJobsList] = useState([]);
@@ -14,6 +15,9 @@ const DashboardPage = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [showDashboard, setShowDashboard] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
+
+  const [isApplying, setIsApplying] = useState(false);
+  const [apiSuccess, setApiSuccess] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -139,6 +143,11 @@ const DashboardPage = () => {
     setShowProfile(true);
   };
 
+  const resetApiSuccess = () => {
+    setApiSuccess(false);
+    setIsApplying(false);
+  };
+
   return (
     <div className="flex w-full mt-10 gap-10">
       <div className="flex-1/4 h-max py-10 px-10 flex flex-col gap-5 rounded-2xl shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
@@ -167,6 +176,11 @@ const DashboardPage = () => {
           </button>
         )}
       </div>
+      <RocketAnimation
+        isApplying={isApplying}
+        apiSuccess={apiSuccess}
+        resetApiSuccess={resetApiSuccess}
+      />
       {showDashboard && (
         <div className="flex-3/4 flex flex-col gap-5">
           {jobsList.length > 0 &&
@@ -176,6 +190,8 @@ const DashboardPage = () => {
                 key={job._id}
                 applicantEmail={authUser.email}
                 isRecruiter={formik.values.isRecruiter}
+                setIsApplying={setIsApplying}
+                setApiSuccess={setApiSuccess}
               />
             ))}
         </div>

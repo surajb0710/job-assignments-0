@@ -3,11 +3,18 @@ import { timeAgo } from '../../utils/utils';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const JobCard = ({ job, applicantEmail, isRecruiter }) => {
+const JobCard = ({
+  job,
+  applicantEmail,
+  isRecruiter,
+  setIsApplying,
+  setApiSuccess,
+}) => {
   const [apply, setApply] = useState(false);
 
   useEffect(() => {
     const applyForJob = async () => {
+      setIsApplying(true);
       try {
         const response = await axios.post(
           'http://localhost:5000/api/jobapplication',
@@ -22,6 +29,9 @@ const JobCard = ({ job, applicantEmail, isRecruiter }) => {
             },
           }
         );
+        if (response.data.success) {
+          setApiSuccess(true);
+        }
         console.log(response);
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -29,7 +39,11 @@ const JobCard = ({ job, applicantEmail, isRecruiter }) => {
     };
 
     apply && applyForJob(job);
-  }, [job, apply, applicantEmail]);
+  }, [job, apply, applicantEmail, setApiSuccess, setIsApplying]);
+
+  const handleMouseClick = () => {
+    setApply(true);
+  };
 
   return (
     <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3 bg-gradient">
@@ -38,7 +52,7 @@ const JobCard = ({ job, applicantEmail, isRecruiter }) => {
           <h3 className="mb-1 text-lg">{job.title}</h3>
           {!isRecruiter && (
             <button
-              onClick={() => setApply(true)}
+              onClick={handleMouseClick}
               className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
             >
               Apply Now

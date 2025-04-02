@@ -1,17 +1,21 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Multiselect from 'multiselect-react-dropdown';
-import { MapPin, Briefcase, Banknote } from 'lucide-react';
-import { formatDistanceToNow, parse } from 'date-fns';
 import axios from 'axios';
+import JobCard from '../components/cards/JobCard';
+import RocketAnimation from '../animation/RocketAnimation';
 
 const JobListingPage = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [selectedExperience, setSelectedExperience] = useState([]);
-
+  const [authUser, setAuthUser] = useState({});
+  const [jobsList, setJobsList] = useState([]);
   const [skills, setSkills] = useState([]);
   const [locations, setLocations] = useState([]);
   const [experience, setExperience] = useState([]);
+
+  const [isApplying, setIsApplying] = useState(false);
+  const [apiSuccess, setApiSuccess] = useState(false);
 
   const onSelectSkills = (selectedList) => setSelectedSkills(selectedList);
   const onRemoveSkills = (selectedList) => setSelectedSkills(selectedList);
@@ -27,111 +31,28 @@ const JobListingPage = () => {
   const onRemoveExperience = (selectedList) =>
     setSelectedExperience(selectedList);
 
-  const jobs = useMemo(
-    () => [
-      {
-        title: 'Frontend Developer',
-        company: 'TechCorp',
-        location: 'New York, NY',
-        experience: '2+ years',
-        salaryRange: '$70,000 - $90,000',
-        skills: ['Node', 'React', 'CSS'],
-        timeElapsed: '30/03/2024 12:00:00',
-      },
-      {
-        title: 'Backend Engineer',
-        company: 'CodeBase',
-        location: 'San Francisco, CA',
-        experience: '3+ years',
-        salaryRange: '$90,000 - $110,000',
-        skills: ['Node.js', 'Express', 'MongoDB'],
-        timeElapsed: '29/03/2024 15:30:00',
-      },
-      {
-        title: 'Full Stack Developer',
-        company: 'InnovateX',
-        location: 'Remote',
-        experience: '4+ years',
-        salaryRange: '$85,000 - $105,000',
-        skills: ['React', 'Node.js', 'GraphQL'],
-        timeElapsed: '28/03/2024 08:45:00',
-      },
-      {
-        title: 'UI/UX Designer',
-        company: 'PixelPerfect',
-        location: 'Los Angeles, CA',
-        experience: '2+ years',
-        salaryRange: '$60,000 - $80,000',
-        skills: ['Figma', 'Sketch', 'Adobe XD'],
-        timeElapsed: '27/03/2024 18:20:00',
-      },
-      {
-        title: 'Data Scientist',
-        company: 'AI Labs',
-        location: 'Boston, MA',
-        experience: '5+ years',
-        salaryRange: '$110,000 - $130,000',
-        skills: ['Python', 'TensorFlow', 'Pandas'],
-        timeElapsed: '25/03/2024 09:10:00',
-      },
-      {
-        title: 'DevOps Engineer',
-        company: 'CloudSync',
-        location: 'Austin, TX',
-        experience: '3+ years',
-        salaryRange: '$95,000 - $115,000',
-        skills: ['Docker', 'Kubernetes', 'AWS'],
-        timeElapsed: '26/03/2024 14:05:00',
-      },
-      {
-        title: 'Product Manager',
-        company: 'Visionary',
-        location: 'Seattle, WA',
-        experience: '6+ years',
-        salaryRange: '$100,000 - $140,000',
-        skills: ['Agile', 'Scrum', 'JIRA'],
-        timeElapsed: '28/03/2024 11:15:00',
-      },
-      {
-        title: 'Cybersecurity Analyst',
-        company: 'SecureNet',
-        location: 'Washington, DC',
-        experience: '3+ years',
-        salaryRange: '$85,000 - $100,000',
-        skills: ['Network Security', 'SIEM', 'Ethical Hacking'],
-        timeElapsed: '30/03/2024 07:50:00',
-      },
-      {
-        title: 'Mobile App Developer',
-        company: 'AppWorks',
-        location: 'Denver, CO',
-        experience: '2+ years',
-        salaryRange: '$75,000 - $95,000',
-        skills: ['Flutter', 'React Native', 'Swift'],
-        timeElapsed: '22/03/2024 16:30:00',
-      },
-      {
-        title: 'Machine Learning Engineer',
-        company: 'DeepTech',
-        location: 'San Diego, CA',
-        experience: '4+ years',
-        salaryRange: '$120,000 - $150,000',
-        skills: ['Python', 'PyTorch', 'NLP'],
-        timeElapsed: '29/03/2024 13:40:00',
-      },
-    ],
-    []
-  );
+  useEffect(() => {
+    const getJobs = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/jobs');
+        setJobsList(response.data.sortedJobs);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
+    };
 
-  const [filteredJobs, setFilteredJobs] = useState(jobs);
+    getJobs();
+  }, []);
+
+  const [filteredJobs, setFilteredJobs] = useState(jobsList);
 
   useEffect(() => {
-    const extractCategories = (jobs) => {
+    const extractCategories = (jobsList) => {
       const skillsSet = new Set();
       const locationSet = new Set();
       const experienceSet = new Set();
 
-      jobs.forEach((job) => {
+      jobsList.forEach((job) => {
         if (job.skills) job.skills.forEach((skill) => skillsSet.add(skill));
         locationSet.add(job.location);
         experienceSet.add(job.experience);
@@ -144,13 +65,13 @@ const JobListingPage = () => {
       setLocations(formatArray(locationSet));
       setExperience(formatArray(experienceSet));
     };
-    extractCategories(jobs);
-  }, [jobs]);
+    extractCategories(jobsList);
+  }, [jobsList]);
 
   useEffect(() => {
     const filterJobs = () => {
       setFilteredJobs(
-        jobs.filter((job) => {
+        jobsList.filter((job) => {
           const skillsMatch =
             selectedSkills.length === 0 ||
             selectedSkills.some((s) => job.skills.includes(s.name));
@@ -167,19 +88,32 @@ const JobListingPage = () => {
         })
       );
     };
-    filterJobs(jobs);
-  }, [selectedSkills, selectedLocations, selectedExperience, jobs]);
+    filterJobs(jobsList);
+  }, [selectedSkills, selectedLocations, selectedExperience, jobsList]);
 
   useEffect(() => {
-    const applyForJob = async () => {
-      const response = await axios.get(
-        'http://localhost:5000/api/jobapplication'
-      );
-      console.log(response);
+    const getAuthUser = async () => {
+      const token = localStorage.getItem('authToken');
+
+      try {
+        const response = await axios.get('http://localhost:5000/api/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAuthUser(response.data.user);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
     };
 
-    applyForJob();
+    getAuthUser();
   }, []);
+
+  const resetApiSuccess = () => {
+    setApiSuccess(false);
+    setIsApplying(false);
+  };
 
   return (
     <main className="mt-10">
@@ -215,9 +149,21 @@ const JobListingPage = () => {
           />
         </div>
       </div>
+      <RocketAnimation
+        isApplying={isApplying}
+        apiSuccess={apiSuccess}
+        resetApiSuccess={resetApiSuccess}
+      />
       <div className="flex-3/4 flex flex-col gap-5 ml-110 h-max my-10">
         {filteredJobs.map((job, index) => (
-          <JobCard job={job} key={index} />
+          <JobCard
+            job={job}
+            key={index}
+            applicantEmail={authUser.email}
+            isRecruiter={authUser.isRecruiter}
+            setIsApplying={setIsApplying}
+            setApiSuccess={setApiSuccess}
+          />
         ))}
       </div>
     </main>
@@ -225,58 +171,3 @@ const JobListingPage = () => {
 };
 
 export default JobListingPage;
-
-const JobCard = ({ job }) => {
-  function timeAgo(dateString) {
-    const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm:ss', new Date());
-    return formatDistanceToNow(parsedDate, { addSuffix: true });
-  }
-
-  return (
-    <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3 bg-gradient">
-      <div className="flex flex-col gap-3">
-        <div>
-          <div className="flex justify-between">
-            <h3 className="mb-1 text-lg">{job.title}</h3>
-            <button className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
-              Apply Now
-            </button>
-          </div>
-          <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
-        </div>
-        <div className="flex gap-6">
-          <div className="flex gap-1 text-sm items-center">
-            <div className="bg-[#bbafe840] p-1 rounded-xl">
-              <MapPin size={20} />
-            </div>
-            {job.location}
-          </div>
-          <div className="flex gap-1 text-sm items-center">
-            <div className="bg-[#bbafe840] p-1 rounded-xl">
-              <Briefcase size={20} />
-            </div>
-            {job.experience}
-          </div>
-          <div className="flex gap-1 text-sm items-center">
-            <div className="bg-[#bbafe840] p-1 rounded-xl">
-              <Banknote size={20} />
-            </div>
-            {job.salaryRange}
-          </div>
-        </div>
-        <ul className="flex gap-2">
-          {job.skills.map((skill, index) => (
-            <li
-              key={index}
-              className="text-sm px-1 py-0.5 bg-[#9793b5] rounded-lg"
-            >
-              {skill}
-            </li>
-          ))}
-        </ul>
-        <div className="text-sm">{timeAgo(job.timeElapsed)}</div>
-      </div>
-      <div></div>
-    </div>
-  );
-};
