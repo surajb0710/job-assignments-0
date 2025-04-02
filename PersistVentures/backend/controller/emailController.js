@@ -49,9 +49,9 @@ const sendJobApplicationEmail = async (req, res) => {
     );
     let jobApplication = await fs.readFile(templatePath, 'utf-8');
 
-    jobApplication = jobApplication.replaceAll('[Job Title]', job.title);
+    jobApplication = jobApplication.replaceAll('[jobTitle]', job.title);
     jobApplication = jobApplication.replaceAll(
-      '[Company Name]',
+      '[companyName]',
       job.companyName
     );
     jobApplication = jobApplication.replaceAll(
@@ -77,7 +77,7 @@ const sendJobApplicationEmail = async (req, res) => {
       .map((skill) => `<li>${skill}</li>`)
       .join('\n');
 
-    jobApplication = jobApplication.replaceAll('[skills]', skillsList);
+    jobApplication = jobApplication.replaceAll('[skillsList]', skillsList);
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,

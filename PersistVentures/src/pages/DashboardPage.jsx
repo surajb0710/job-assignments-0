@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import Multiselect from 'multiselect-react-dropdown';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleModel } from '../features/jobPostModelSlice';
 import RocketAnimation from '../animation/RocketAnimation';
 
@@ -18,6 +18,10 @@ const DashboardPage = () => {
 
   const [isApplying, setIsApplying] = useState(false);
   const [apiSuccess, setApiSuccess] = useState(false);
+
+  const showJobPostModel = useSelector(
+    (state) => state.jobPostModel.showJobPostModel
+  );
 
   const dispatch = useDispatch();
 
@@ -51,7 +55,7 @@ const DashboardPage = () => {
     };
 
     getJobs();
-  }, []);
+  }, [showJobPostModel]);
 
   useEffect(() => {
     const getAuthUser = async () => {

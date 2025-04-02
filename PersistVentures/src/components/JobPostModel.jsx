@@ -6,9 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import Multiselect from 'multiselect-react-dropdown';
-import * as Yup from 'yup';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const JobPostModel = () => {
@@ -60,7 +58,7 @@ const JobPostModel = () => {
         const skillsArray = values.skills.map((item) => item.skills);
 
         const jobPostingResponse = await axios.post(
-          'http://localhost:5000/api/addjobpost',
+          'http://localhost:5000/api/jobs',
           {
             title: values.title,
             companyName: values.companyName,
@@ -74,6 +72,7 @@ const JobPostModel = () => {
         );
         toast.success(jobPostingResponse.data.message);
         resetForm();
+        dispatch(toggleModel());
       } catch (error) {
         toast.error(error.response?.data?.message);
       }

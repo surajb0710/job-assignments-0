@@ -69,7 +69,7 @@ const JobPostForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="experience">Expiry Date</label>
+        <label htmlFor="expiryDate">Expiry Date</label>
         <br />
         <input
           type="date"
