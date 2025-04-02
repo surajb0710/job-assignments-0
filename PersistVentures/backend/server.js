@@ -6,10 +6,12 @@ import otpRouter from './routes/otproutes.js';
 import userRouter from './routes/userRoutes.js';
 import notificationRouter from './routes/notificationRoutes.js';
 import jobRouter from './routes/jobRoutes.js';
-
+import cors from '.';
 import connectDB from './config/mongodb.js';
+import corsMiddleware from './middleware/corsMiddleware.js';
 
 dotenv.config();
+app.use(corsMiddleware);
 
 const app = express();
 app.use(cors());
