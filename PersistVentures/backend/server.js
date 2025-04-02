@@ -14,7 +14,7 @@ dotenv.config();
 app.use(corsMiddleware);
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'https://persist-ventures-fe.vercel.app' }));
 app.use(bodyParser.json());
 connectDB();
 
