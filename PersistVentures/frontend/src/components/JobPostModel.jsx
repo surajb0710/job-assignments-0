@@ -26,7 +26,9 @@ const JobPostModel = () => {
   useEffect(() => {
     const getSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/skills');
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/skills`
+        );
 
         const formattedSkills = response.data.map((skill, index) => ({
           skills: skill,
@@ -58,7 +60,7 @@ const JobPostModel = () => {
         const skillsArray = values.skills.map((item) => item.skills);
 
         const jobPostingResponse = await axios.post(
-          'http://localhost:5000/api/jobs',
+          `${import.meta.VITE_BACKEND_URL}/jobs`,
           {
             title: values.title,
             companyName: values.companyName,

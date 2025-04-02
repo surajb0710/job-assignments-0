@@ -34,7 +34,9 @@ const JobListingPage = () => {
   useEffect(() => {
     const getJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/jobs');
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/jobs`
+        );
         setJobsList(response.data.sortedJobs);
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -96,11 +98,14 @@ const JobListingPage = () => {
       const token = localStorage.getItem('authToken');
 
       try {
-        const response = await axios.get('http://localhost:5000/api/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/profile`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setAuthUser(response.data.user);
       } catch (error) {
         console.error('Error fetching skills:', error);

@@ -28,7 +28,9 @@ const DashboardPage = () => {
   useEffect(() => {
     const getSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/skills');
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/skills`
+        );
 
         const formattedSkills = response.data.map((skill, index) => ({
           skills: skill,
@@ -47,7 +49,9 @@ const DashboardPage = () => {
   useEffect(() => {
     const getJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/jobs');
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/jobs`
+        );
         setJobsList(response.data.sortedJobs);
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -62,11 +66,14 @@ const DashboardPage = () => {
       const token = localStorage.getItem('authToken');
 
       try {
-        const response = await axios.get('http://localhost:5000/api/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.VITE_BACKEND_URL}/profile`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setAuthUser(response.data.user);
         setSelectedSkills(
           response.data.user.skills.map((skill) => ({
@@ -99,7 +106,7 @@ const DashboardPage = () => {
         const skillsArray = values.skills.map((item) => item.skills);
 
         const updateResponse = await axios.patch(
-          'http://localhost:5000/api/profile',
+          `${import.meta.VITE_BACKEND_URL}/profile`,
           {
             fullName: values.fullName,
             phoneNumber: values.phoneNumber,

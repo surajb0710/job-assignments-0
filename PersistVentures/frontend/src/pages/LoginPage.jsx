@@ -39,7 +39,7 @@ const LoginPage = () => {
       try {
         if (!otpSent) {
           const response = await axios.post(
-            'http://localhost:5000/api/send-otp',
+            `${import.meta.VITE_BACKEND_URL}/send-otp`,
             { email: values.email }
           );
           console.log(response);
@@ -48,7 +48,7 @@ const LoginPage = () => {
           setIsResendDisabled(true);
         } else {
           const response = await axios.post(
-            'http://localhost:5000/api/verify-otp',
+            `${import.meta.VITE_BACKEND_URL}/verify-otp`,
             {
               email: values.email,
               otp: values.otp,
@@ -78,7 +78,7 @@ const LoginPage = () => {
   const handleResendOTP = async () => {
     setTimeLeft(30);
     setIsResendDisabled(true);
-    await axios.post('http://localhost:5000/api/send-otp', {
+    await axios.post(`${import.meta.VITE_BACKEND_URL}/send-otp`, {
       email: formik.values.email,
     });
   };

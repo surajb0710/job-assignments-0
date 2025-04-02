@@ -17,7 +17,7 @@ const JobCard = ({
       setIsApplying(true);
       try {
         const response = await axios.post(
-          'http://localhost:5000/api/jobapplication',
+          `${import.meta.VITE_BACKEND_URL}/jobapplication`,
           {
             job: job,
             authUser: authUser,
