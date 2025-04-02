@@ -18,8 +18,9 @@ const HeroComponent = ({ section1Ref }) => {
       launchConfetti();
       navigate('/signup');
       localStorage.setItem('linkedInUrl', value);
+    } else {
+      toast.error('Invalid linkedin url');
     }
-    toast.error('Invalid linkedin url');
   };
 
   return (

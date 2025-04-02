@@ -2,7 +2,9 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 import OTPModel from '../models/otpModel.js';
-
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
@@ -47,12 +49,19 @@ const sendOTP = async (req, res) => {
       console.log('MongoDB create result:', result);
     }
 
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(path.dirname(__filename));
+    const templatePath = path.join(__dirname, 'templates', 'otpTemplate.html');
+    let otpEmail = await fs.readFile(templatePath, 'utf-8');
+
+    otpEmail = otpEmail.replaceAll('[OTP]', otp);
+
     // Send OTP via Email
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Your OTP Code',
-      text: `Your OTP is: ${otp}`,
+      html: otpEmail,
     });
 
     res.json({ success: true, message: 'OTP sent successfully' });
