@@ -5,6 +5,52 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
+const getAuthUserProfile = async (req, res) => {
+  {
+    try {
+      res.json({ success: true, user: req.user });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+};
+
+const updateAuthUserProfile = async (req, res) => {
+  try {
+    const {
+      fullName,
+      email,
+      phoneNumber,
+      skills,
+      experience,
+      professionalSummary,
+    } = req.body;
+
+    const updatedUser = await userModel.findOneAndUpdate(
+      { email: email },
+      {
+        fullName,
+        phoneNumber,
+        skills,
+        experience,
+        professionalSummary,
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    res.json({ success: true, message: 'User has been registred' });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 // Route for user login
 const loginUser = async (req, res) => {
   try {
@@ -42,8 +88,6 @@ const registerUser = async (req, res) => {
       professionalSummary,
     } = req.body;
 
-    console.log('-------', req.body);
-    // checking if user already exists
     const userExists = await userModel.findOne({ email });
     if (userExists) {
       res.json({ success: false, message: 'User already exists' });
@@ -72,4 +116,10 @@ const getSkills = async (req, res) => {
   res.json(skillEnum);
 };
 
-export { loginUser, registerUser, getSkills };
+export {
+  getAuthUserProfile,
+  updateAuthUserProfile,
+  loginUser,
+  registerUser,
+  getSkills,
+};

@@ -32,16 +32,17 @@ const sendInvitationForJobEmail = async (req, res) => {
 };
 
 const sendJobApplicationEmail = async (req, res) => {
-  const { email } = req.body;
+  const { recruiterEmail, title, applicantEmail } = req.body;
 
-  if (!email) return res.status(400).json({ message: 'Email is required' });
+  if (!recruiterEmail)
+    return res.status(400).json({ message: 'Email is required' });
 
   try {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Application for job position',
-      text: `I am interested in the job position`,
+      to: recruiterEmail,
+      subject: `Application for job position ${title}`,
+      text: `Hi, I am interested in the job position and my email id is ${applicantEmail}`,
     });
 
     res.json({ success: true, message: 'Email sent successfully' });

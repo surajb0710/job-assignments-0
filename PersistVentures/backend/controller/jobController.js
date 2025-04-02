@@ -1,6 +1,22 @@
 import jobModel from '../models/jobModel.js';
 
-// Route for user register
+const getJobs = async (req, res) => {
+  try {
+    const jobs = await jobModel.find({});
+
+    const sortedJobs = jobs.slice().sort((a, b) => {
+      const dateA = new Date(a.updatedAt);
+      const dateB = new Date(b.updatedAt);
+      return dateB - dateA;
+    });
+
+    res.json({ sortedJobs });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 const addJobPost = async (req, res) => {
   try {
     const {
@@ -50,4 +66,4 @@ const deleteJobPost = async (req, res) => {
   }
 };
 
-export { addJobPost, deleteJobPost, updateJobPost };
+export { getJobs, addJobPost, deleteJobPost, updateJobPost };

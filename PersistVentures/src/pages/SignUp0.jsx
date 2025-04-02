@@ -83,12 +83,8 @@ const SignUpPage = () => {
       profileSummary: Yup.string(),
     }),
     onSubmit: async (values, { resetForm }) => {
-      console.log('onSubmit called!');
       setLoading(true);
       setErrorMessage('');
-
-      console.log('Formik Values:', values); // Debugging
-      console.log('Selected Skills:', selectedSkills); //debugging
 
       try {
         if (!otpSent) {
@@ -159,13 +155,11 @@ const SignUpPage = () => {
   };
 
   const onSelectSkills = (selectedList) => {
-    console.log('onSelectSkills called!');
     setSelectedSkills(selectedList);
     formik.setFieldValue('skills', selectedList);
   };
 
   const onRemoveSkills = (selectedList) => {
-    console.log('onRemoveSkills called!');
     setSelectedSkills(selectedList);
     formik.setFieldValue('skills', selectedList);
   };

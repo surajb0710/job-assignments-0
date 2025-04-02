@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  getJobs,
   addJobPost,
   deleteJobPost,
   updateJobPost,
@@ -7,8 +8,9 @@ import {
 
 const jobRouter = express.Router();
 
-jobRouter.post('/addjobpost', addJobPost);
-jobRouter.delete('/deletejobpost', deleteJobPost);
-jobRouter.patch('/updatejobpost', updateJobPost);
+jobRouter.get('/jobs', getJobs);
+jobRouter.post('/jobs', addJobPost);
+jobRouter.delete('/jobs', deleteJobPost);
+jobRouter.patch('/jobs', updateJobPost);
 
 export default jobRouter;
