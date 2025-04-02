@@ -1,6 +1,7 @@
 import React from 'react';
 import data from '../../data.json';
 import { Mail, Briefcase, Phone } from 'lucide-react';
+import person1 from '../assets/images/people/person1.jpg';
 
 const CandidateListingPage = () => {
   return (
@@ -17,7 +18,10 @@ export default CandidateListingPage;
 const CandidateCard = ({ user }) => {
   return (
     <div className="shadow-[inset_0px_0px_5px_1px_#f7fafc90] p-5 rounded-2xl flex flex-col gap-3 bg-gradient">
-      <h2>{user.fullName}</h2>
+      <div className="self-center">
+        <img src={person1} alt="" className="h-[300px] w-[300px] rounded-2xl" />
+      </div>
+      <h2 className="text-center text-xl mb-2">{user.fullName}</h2>
       <div className="flex gap-5">
         <div className="text-sm flex items-center gap-1">
           <div className="bg-[#bbafe840] p-1.5 rounded-xl w-max">

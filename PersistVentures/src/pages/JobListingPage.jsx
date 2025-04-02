@@ -170,8 +170,6 @@ const JobListingPage = () => {
     filterJobs(jobs);
   }, [selectedSkills, selectedLocations, selectedExperience, jobs]);
 
-  console.log('skills', skills);
-
   useEffect(() => {
     const applyForJob = async () => {
       const response = await axios.get(
@@ -236,47 +234,49 @@ const JobCard = ({ job }) => {
 
   return (
     <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex flex-col gap-3 bg-gradient">
-      <div>
-        <div className="flex justify-between">
-          <h3 className="mb-1 text-lg">{job.title}</h3>
-          <button className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
-            Apply Now
-          </button>
+      <div className="flex flex-col gap-3">
+        <div>
+          <div className="flex justify-between">
+            <h3 className="mb-1 text-lg">{job.title}</h3>
+            <button className="w-max text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer">
+              Apply Now
+            </button>
+          </div>
+          <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
         </div>
-        <h4 className="text-sm text-[#bbafe8]">{job.company}</h4>
+        <div className="flex gap-6">
+          <div className="flex gap-1 text-sm items-center">
+            <div className="bg-[#bbafe840] p-1 rounded-xl">
+              <MapPin size={20} />
+            </div>
+            {job.location}
+          </div>
+          <div className="flex gap-1 text-sm items-center">
+            <div className="bg-[#bbafe840] p-1 rounded-xl">
+              <Briefcase size={20} />
+            </div>
+            {job.experience}
+          </div>
+          <div className="flex gap-1 text-sm items-center">
+            <div className="bg-[#bbafe840] p-1 rounded-xl">
+              <Banknote size={20} />
+            </div>
+            {job.salaryRange}
+          </div>
+        </div>
+        <ul className="flex gap-2">
+          {job.skills.map((skill, index) => (
+            <li
+              key={index}
+              className="text-sm px-1 py-0.5 bg-[#9793b5] rounded-lg"
+            >
+              {skill}
+            </li>
+          ))}
+        </ul>
+        <div className="text-sm">{timeAgo(job.timeElapsed)}</div>
       </div>
-      <div className="flex gap-6">
-        <div className="flex gap-1 text-sm items-center">
-          <div className="bg-[#bbafe840] p-1 rounded-xl">
-            <MapPin size={20} />
-          </div>
-          {job.location}
-        </div>
-        <div className="flex gap-1 text-sm items-center">
-          <div className="bg-[#bbafe840] p-1 rounded-xl">
-            <Briefcase size={20} />
-          </div>
-          {job.experience}
-        </div>
-        <div className="flex gap-1 text-sm items-center">
-          <div className="bg-[#bbafe840] p-1 rounded-xl">
-            <Banknote size={20} />
-          </div>
-          {job.salaryRange}
-        </div>
-      </div>
-      <ul className="flex gap-2">
-        {job.skills.map((skill, index) => (
-          <li
-            key={index}
-            className="text-sm px-1 py-0.5 bg-[#9793b5] rounded-lg"
-          >
-            {skill}
-          </li>
-        ))}
-      </ul>
-
-      <div className="text-sm">{timeAgo(job.timeElapsed)}</div>
+      <div></div>
     </div>
   );
 };
