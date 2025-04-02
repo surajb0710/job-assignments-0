@@ -1,15 +1,10 @@
 {
-  "headers": [
+  "version": 2,
+  "builds": [{ "src": "*.js", "use": "@vercel/node" }],
+  "routes": [
     {
-      "source": "/api/jobs",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://persist-ventures-fe.vercel.app"
-        },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
-      ]
+      "src": "/(.*)",
+      "dest": "/"
     }
   ]
 }
