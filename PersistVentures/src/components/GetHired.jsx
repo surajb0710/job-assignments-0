@@ -1,13 +1,14 @@
-import React from 'react';
 import linkedin from '../assets/images/linkedin.png';
 import globe from '../assets/images/globe.png';
 import arrow02 from '../assets/images/arrow02.png';
 import { person } from '../assets/assets';
 import rocket from '../assets/images/rocket.png';
 import target from '../assets/images/target.png';
-import ScrollTriggered from './CardAnimation';
-import AnimatedJobCards from './CardAnimation';
+import ScrollTriggered from './AnimatedJobCards';
+import AnimatedJobCards from './AnimatedJobCards';
 import { Link } from 'react-router-dom';
+import JobPostForm from '../forms/JobPostForm';
+import AnimatedForm from './AnimatedForm';
 
 const GetHired = () => {
   return (
@@ -56,6 +57,11 @@ const GetHired = () => {
           <AnimatedJobCards />
         </div>
         <div className="relative h-100 overflow-clip col-start-1 col-end-2 row-start-2 row-end-3 rounded-2xl backdrop-blur-sm shadow-[inset_0px_2px_20px_-3px_rgba(_255,_255,_255,1)]">
+          {
+            <div className="">
+              <AnimatedForm>{<JobPostForm />}</AnimatedForm>
+            </div>
+          }
           <div className="absolute top-0 left-[100px]">
             <UserProfileCard />
           </div>
