@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import search from '../assets/images/search.png';
 import { launchConfetti } from '../utils/confettiUtils';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const HeroComponent = ({ section1Ref }) => {
   const [value, setValue] = useState('');
@@ -18,6 +19,7 @@ const HeroComponent = ({ section1Ref }) => {
       navigate('/signup');
       localStorage.setItem('linkedInUrl', value);
     }
+    toast.error('Invalid linkedin url');
   };
 
   return (

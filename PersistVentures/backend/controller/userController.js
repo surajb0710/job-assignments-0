@@ -46,7 +46,10 @@ const updateAuthUserProfile = async (req, res) => {
         .json({ success: false, message: 'User not found' });
     }
 
-    res.json({ success: true, message: 'User has been registred' });
+    res.json({
+      success: true,
+      message: 'Your information has been updated successfully',
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
