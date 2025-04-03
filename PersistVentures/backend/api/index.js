@@ -2,11 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import otpRouter from './routes/otproutes.js';
-import userRouter from './routes/userRoutes.js';
-import notificationRouter from './routes/notificationRoutes.js';
-import jobRouter from './routes/jobRoutes.js';
-import connectDB from './config/mongodb.js';
+import otpRouter from '../routes/otproutes.js';
+import userRouter from '../routes/userRoutes.js';
+import notificationRouter from '../routes/notificationRoutes.js';
+import jobRouter from '../routes/jobRoutes.js';
+import connectDB from '../config/mongodb.js';
 
 dotenv.config();
 
@@ -16,6 +16,8 @@ app.use(cors());
 
 app.use(bodyParser.json());
 connectDB();
+
+app.get('/', (req, res) => res.send('Server is Running'));
 
 app.use('/api', otpRouter);
 app.use('/api', userRouter);
