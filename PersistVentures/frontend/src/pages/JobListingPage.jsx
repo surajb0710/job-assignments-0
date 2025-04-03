@@ -131,6 +131,25 @@ const JobListingPage = () => {
             onSelect={onSelectSkills}
             onRemove={onRemoveSkills}
             displayValue="name"
+            style={{
+              searchBox: {
+                border: 'none', // Corrected: Added quotes around 'none'
+                fontSize: '14px', // Corrected: Added quotes around '10px'
+              },
+              chips: {
+                // To change css chips(Selected options)
+                background: '#9793b5',
+              },
+              optionContainer: {
+                // To change css for option container
+                border: '2px solid',
+                background: '#bbafe8',
+              },
+              option: {
+                // To change css for dropdown options
+                color: '#5c5482',
+              },
+            }}
           />
         </div>
         <div>
@@ -141,6 +160,25 @@ const JobListingPage = () => {
             onSelect={onSelectLocations}
             onRemove={onRemoveLocations}
             displayValue="name"
+            style={{
+              searchBox: {
+                border: 'none', // Corrected: Added quotes around 'none'
+                fontSize: '14px', // Corrected: Added quotes around '10px'
+              },
+              chips: {
+                // To change css chips(Selected options)
+                background: '#9793b5',
+              },
+              optionContainer: {
+                // To change css for option container
+                border: '2px solid',
+                background: '#bbafe8',
+              },
+              option: {
+                // To change css for dropdown options
+                color: '#5c5482',
+              },
+            }}
           />
         </div>
         <div>
@@ -151,6 +189,25 @@ const JobListingPage = () => {
             onSelect={onSelectExperience}
             onRemove={onRemoveExperience}
             displayValue="name"
+            style={{
+              searchBox: {
+                border: 'none', // Corrected: Added quotes around 'none'
+                fontSize: '14px', // Corrected: Added quotes around '10px'
+              },
+              chips: {
+                // To change css chips(Selected options)
+                background: '#9793b5',
+              },
+              optionContainer: {
+                // To change css for option container
+                border: '2px solid',
+                background: '#bbafe8',
+              },
+              option: {
+                // To change css for dropdown options
+                color: '#5c5482',
+              },
+            }}
           />
         </div>
       </div>
