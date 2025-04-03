@@ -17,6 +17,8 @@ app.use(cors());
 app.use(bodyParser.json());
 connectDB();
 
+app.get('/', (req, res) => res.send('Server is Running'));
+
 app.use('/api', otpRouter);
 app.use('/api', userRouter);
 app.use('/api', notificationRouter);
