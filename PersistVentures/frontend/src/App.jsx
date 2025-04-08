@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import JobListingPage from './pages/JobListingPage';
 import CandidateListingPage from './pages/CandidateListingPage';
-import SignUpPage from './pages/SignUp0';
+import SignUpPage from './pages/SignUpPage';
 import JobModel from './components/JobModel';
 import { AnimatePresence } from 'framer-motion';
 import DashboardPage from './pages/DashboardPage';

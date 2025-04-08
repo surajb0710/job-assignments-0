@@ -98,15 +98,17 @@ const JobListingPage = () => {
       const token = localStorage.getItem('authToken');
 
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setAuthUser(response.data.user);
+        if (token) {
+          const response = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/profile`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setAuthUser(response.data.user);
+        }
       } catch (error) {
         console.error('Error fetching skills:', error);
       }

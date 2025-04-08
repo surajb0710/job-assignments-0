@@ -25,8 +25,6 @@ const JobPostModel = () => {
           `${import.meta.env.VITE_BACKEND_URL}/skills`
         );
 
-        console.log('------------', import.meta.env.VITE_BACKEND_URL);
-
         const formattedSkills = response.data.map((skill, index) => ({
           skills: skill,
           id: index + 1,

@@ -2,6 +2,7 @@ import { MapPin, Briefcase, Banknote } from 'lucide-react';
 import { timeAgo } from '../../utils/utils';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const JobCard = ({
   job,
@@ -11,6 +12,8 @@ const JobCard = ({
   setApiSuccess,
 }) => {
   const [apply, setApply] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const applyForJob = async () => {
@@ -31,7 +34,6 @@ const JobCard = ({
         if (response.data.success) {
           setApiSuccess(true);
         }
-        console.log(response);
       } catch (error) {
         console.error('Error fetching skills:', error);
       }
@@ -41,7 +43,11 @@ const JobCard = ({
   }, [job, apply, authUser, setApiSuccess, setIsApplying]);
 
   const handleMouseClick = () => {
-    setApply(true);
+    if (!localStorage.getItem('authToken')) {
+      navigate('/login');
+    } else {
+      setApply(true);
+    }
   };
 
   return (

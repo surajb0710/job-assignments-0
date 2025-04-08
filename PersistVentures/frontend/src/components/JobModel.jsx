@@ -3,10 +3,20 @@ import { MapPin, Briefcase, Banknote, Clock8, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModel } from '../features/jobModelSlice';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const JobModel = () => {
   const dispatch = useDispatch();
   const showJobModel = useSelector((state) => state.jobModel.showJobModel);
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (!localStorage.getItem('authToken')) {
+      navigate('/login');
+      dispatch(toggleModel());
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -142,6 +152,7 @@ const JobModel = () => {
               </div>
               <button
                 type="button"
+                onClick={handleClick}
                 className="w-max self-center text-base bg-[#7e6bd2] px-5 h-12 rounded-[24px] shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer"
               >
                 Apply Now
