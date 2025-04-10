@@ -17,6 +17,29 @@ const getJobs = async (req, res) => {
   }
 };
 
+const getJobById = async (req, res) => {
+  // console.log('-----req----', req.body);
+  try {
+    const { _id } = req.body;
+
+    if (!_id) {
+      return;
+    }
+
+    console.log('-----currentJobId----', _id);
+
+    // let jobObjectid = new ObjectId(jobId);
+
+    const currentJob = await jobModel.findById(_id);
+
+    res.json({ success: true, currentJob });
+    console.log('-----currentJob------', currentJob);
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 const addJobPost = async (req, res) => {
   try {
     const {
@@ -27,6 +50,9 @@ const addJobPost = async (req, res) => {
       salary,
       email,
       expiryDate,
+      responsibilities,
+      whoCanApply,
+      aboutCompany,
       skills,
     } = req.body;
 
@@ -38,6 +64,9 @@ const addJobPost = async (req, res) => {
       salary,
       email,
       expiryDate,
+      responsibilities,
+      whoCanApply,
+      aboutCompany,
       skills,
     });
 
@@ -66,4 +95,4 @@ const deleteJobPost = async (req, res) => {
   }
 };
 
-export { getJobs, addJobPost, deleteJobPost, updateJobPost };
+export { getJobs, addJobPost, deleteJobPost, updateJobPost, getJobById };

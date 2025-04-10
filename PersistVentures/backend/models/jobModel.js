@@ -10,8 +10,22 @@ const jobSchema = new mongoose.Schema(
     salary: { type: String, require: true },
     email: { type: String, require: true },
     expiryDate: { type: Date },
-    responsibilities: { type: String, require: true },
-    whoCanApply: { type: String, require: true },
+    responsibilities: {
+      type: [
+        {
+          type: String,
+        },
+      ],
+      require: true,
+    },
+    whoCanApply: {
+      type: [
+        {
+          type: String,
+        },
+      ],
+      require: true,
+    },
     aboutCompany: { type: String, require: true },
     skills: {
       type: [

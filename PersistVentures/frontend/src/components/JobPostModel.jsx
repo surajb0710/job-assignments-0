@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import BulletTextArea from '../forms/formfields/BulletTextArea';
 
 const JobPostModel = () => {
   const dispatch = useDispatch();
@@ -48,11 +49,24 @@ const JobPostModel = () => {
       salary: '',
       email: '',
       expiryDate: '',
+      responsibilities: '- ',
+      whoCanApply: '',
+      aboutCompany: '',
       skills: [],
     },
     onSubmit: async (values, { resetForm }) => {
       try {
         const skillsArray = values.skills.map((item) => item.skills);
+
+        const responsibilitiesArray = values.responsibilities
+          .split('\n')
+          .map((item) => item.trim())
+          .filter((item) => item.length > 0);
+
+        const whoCanApplyArray = values.whoCanApply
+          .split('\n')
+          .map((item) => item.trim())
+          .filter((item) => item.length > 0);
 
         const jobPostingResponse = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/jobs`,
@@ -64,7 +78,15 @@ const JobPostModel = () => {
             salary: values.salary,
             email: values.email,
             expiryDate: values.expiryDate,
+            responsibilities: responsibilitiesArray,
+            whoCanApply: whoCanApplyArray,
+            aboutCompany: values.aboutCompany,
             skills: skillsArray,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            },
           }
         );
         toast.success(jobPostingResponse.data.message);
@@ -77,13 +99,11 @@ const JobPostModel = () => {
   });
 
   const onSelectSkills = (selectedList) => {
-    console.log('onSelectSkills called!');
     setSelectedSkills(selectedList);
     formik.setFieldValue('skills', selectedList);
   };
 
   const onRemoveSkills = (selectedList) => {
-    console.log('onRemoveSkills called!');
     setSelectedSkills(selectedList);
     formik.setFieldValue('skills', selectedList);
   };
@@ -93,7 +113,7 @@ const JobPostModel = () => {
       {showJobPostModel && (
         <motion.div className="max-w-full flex items-center justify-center">
           <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 px-20"
+            className="absolute top-0 flex items-center justify-center z-50 px-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -115,10 +135,10 @@ const JobPostModel = () => {
               </button>
               <h1 className="text-3xl text-center">Job Post Form</h1>
               <form
-                className="grid grid-cols-2 grid-rows-[maxContent_maxContent_maxContent_maxContent] gap-y-3 gap-x-5"
+                className="grid grid-cols-3 grid-rows-[repeat(6, maxContent)] gap-y-3 gap-x-5"
                 onSubmit={formik.handleSubmit}
               >
-                <div className="col-span-2">
+                <div className="col-span-3">
                   <label htmlFor="title">Title</label>
                   <br />
                   <input
@@ -135,7 +155,7 @@ const JobPostModel = () => {
                     <p className="errorMessage">{formik.errors.title}</p>
                   )}
                 </div>
-                <div>
+                <div className="row-start-2">
                   <label htmlFor="companyName">Company Name</label>
                   <br />
                   <input
@@ -204,7 +224,7 @@ const JobPostModel = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="email">Email Address</label>
+                  <label htmlFor="email">Recruiter's Email Address</label>
                   <input
                     type="email"
                     id="email"
@@ -220,7 +240,7 @@ const JobPostModel = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="experience">Expiry Date</label>
+                  <label htmlFor="experience">Job Expiry Date</label>
                   <br />
                   <input
                     type="date"
@@ -236,7 +256,7 @@ const JobPostModel = () => {
                     <p className="errorMessage">{formik.errors.expiryDate}</p>
                   )}
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-3">
                   <label htmlFor="skills">Skills</label>
                   <br />
                   <Multiselect
@@ -271,10 +291,59 @@ const JobPostModel = () => {
                     <p className="errorMessage">{formik.errors.skills}</p>
                   )}
                 </div>
-
+                <div className="col-span-2 row-span-2 row-start-2">
+                  <label htmlFor="responsibilities">Responsibilities</label>
+                  <br />
+                  <BulletTextArea
+                    type="text"
+                    id="responsibilities"
+                    placeholder="Enter responsibilities"
+                    value={formik.values.responsibilities}
+                    onBlur={formik.handleBlur}
+                    setFieldValue={formik.setFieldValue}
+                  />
+                  {formik.touched.responsibilities && (
+                    <p className="errorMessage">
+                      {formik.errors.responsibilities}
+                    </p>
+                  )}
+                </div>
+                <div className="col-start-2 col-span-2 row-span-2 row-start-4">
+                  <label htmlFor="whoCanApply">Who Can Apply</label>
+                  <br />
+                  <BulletTextArea
+                    type="text"
+                    id="whoCanApply"
+                    placeholder="Enter Who can apply"
+                    value={formik.values.whoCanApply}
+                    onBlur={formik.handleBlur}
+                    setFieldValue={formik.setFieldValue}
+                  />
+                  {formik.touched.whoCanApply && (
+                    <p className="errorMessage">{formik.errors.whoCanApply}</p>
+                  )}
+                </div>
+                <div className="col-start-2 col-span-2 row-span-2 row-start-6">
+                  <label htmlFor="aboutCompany">About Company</label>
+                  <br />
+                  <textarea
+                    type="text"
+                    id="aboutCompany"
+                    name="aboutCompany"
+                    placeholder="Enter some info about company"
+                    onChange={formik.handleChange}
+                    value={formik.values.aboutCompany}
+                    onBlur={formik.handleBlur}
+                    rows={5}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+                  {formik.touched.aboutCompany && (
+                    <p className="errorMessage">{formik.errors.aboutCompany}</p>
+                  )}
+                </div>
                 <button
                   type="submit"
-                  className="w-full col-span-2 self-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-2 rounded-xl"
+                  className="w-full col-start-2 col-span-1 self-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-2 rounded-xl"
                 >
                   Submit
                 </button>

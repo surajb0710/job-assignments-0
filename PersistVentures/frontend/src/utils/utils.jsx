@@ -31,4 +31,14 @@ function timeAgo(timestamp) {
   return years + ' year' + (years > 1 ? 's' : '') + ' ago';
 }
 
-export { timeAgo };
+function applyByDate(dateString) {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' }); // e.g., 'Apr'
+  const year = date.getFullYear().toString().slice(-2); // Get last two digits
+
+  return `${day} ${month}' ${year}`;
+}
+
+export { timeAgo, applyByDate };

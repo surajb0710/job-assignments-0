@@ -1,10 +1,7 @@
-import linkedin from '../assets/images/linkedin.png';
-import globe from '../assets/images/globe.png';
 import arrow02 from '../assets/images/arrow02.png';
 import { person } from '../assets/assets';
 import rocket from '../assets/images/rocket.png';
 import target from '../assets/images/target.png';
-import ScrollTriggered from './AnimatedJobCards';
 import AnimatedJobCards from './AnimatedJobCards';
 import { Link } from 'react-router-dom';
 import JobPostForm from '../forms/JobPostForm';
@@ -40,20 +37,6 @@ const GetHired = () => {
           />
         </div>
         <div className="h-100 overflow-clip relative col-start-2 col-end-3 row-start-1 row-end-2 rounded-2xl backdrop-blur-sm shadow-[inset_0px_2px_20px_-3px_rgba(_255,_255,_255,1)]">
-          <div className="absolute bottom-[-10px] right-[-10px] z-20">
-            <JobCard />
-          </div>
-          <div className="absolute top-[-10px] right-[-70px] z-10">
-            <JobCard />
-          </div>
-          <div className="absolute bottom-[-40px] right-[190px] z-10">
-            <JobCard />
-          </div>
-          <div className="absolute bottom-[80px] right-[100px]">
-            <JobCard />
-          </div>
-        </div>
-        <div className="h-100 overflow-clip relative col-start-2 col-end-3 row-start-1 row-end-2 rounded-2xl backdrop-blur-sm shadow-[inset_0px_2px_20px_-3px_rgba(_255,_255,_255,1)]">
           <AnimatedJobCards />
         </div>
         <div className="relative h-100 overflow-clip col-start-1 col-end-2 row-start-2 row-end-3 rounded-2xl backdrop-blur-sm shadow-[inset_0px_2px_20px_-3px_rgba(_255,_255,_255,1)]">
@@ -87,55 +70,6 @@ const GetHired = () => {
 };
 
 export default GetHired;
-
-const JobCard = () => {
-  return (
-    <div className="bg-black rounded-2xl p-6 flex flex-col gap-3 border border-white">
-      <div className="flex gap-3">
-        <button
-          type="button"
-          className="px-4 py-2 rounded-xl w-max text-white border border-white text-sm"
-        >
-          Job
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 rounded-xl w-max text-white border border-white text-sm glow-border"
-        >
-          Full Time
-        </button>
-      </div>
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 bg-white p-2 rounded-full">
-          <img src={linkedin} alt="" />
-        </div>
-        <div>
-          <p className="text-white">Flutter Developer</p>
-          <p className="text-white text-[12px]">Persist Ventures</p>
-        </div>
-      </div>
-      <hr className="h-0.5 text-white" />
-      <div className="flex gap-4">
-        <p className="text-white text-[12px] flex gap-1">
-          <span>$</span>1,00,000
-        </p>
-        <div className="text-white text-[12px] flex gap-2 items-center relative">
-          <div className="relative h-3 w-3">
-            <img
-              src={globe}
-              alt=""
-              className="absolute h-3 w-3 z-10 animate-ping"
-            />
-          </div>
-          WorldWide
-        </div>
-      </div>
-      <button className="w-max text-sm bg-[#7e6bd2] px-5 py-2 rounded-xl border-white shadow-[inset_0px_0px_10px_1px_#f7fafc90] cursor-pointer">
-        View Details
-      </button>
-    </div>
-  );
-};
 
 const Card = ({ title, description, buttonLabel, img, url }) => {
   return (

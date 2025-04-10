@@ -81,6 +81,13 @@ const userSchema = new mongoose.Schema(
       ],
       require: true,
     },
+    jobsApplied: {
+      type: [
+        {
+          type: String,
+        },
+      ],
+    },
     experience: { type: String, require: true },
     professionalSummary: { type: String },
     isRecruiter: { type: Boolean },

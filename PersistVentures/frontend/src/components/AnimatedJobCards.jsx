@@ -1,11 +1,13 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import globe from '../assets/images/globe.png';
 import linkedin from '../assets/images/linkedin.png';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import { toggleModel } from '../features/jobModelSlice';
+import axios from 'axios';
+import { MapPin } from 'lucide-react';
 
-const JobCard = () => {
+const JobCard = ({ job }) => {
   const dispatch = useDispatch();
 
   return (
@@ -29,24 +31,26 @@ const JobCard = () => {
           <img src={linkedin} alt="" />
         </div>
         <div>
-          <p className="text-white">Flutter Developer</p>
-          <p className="text-white text-[12px]">Persist Ventures</p>
+          <p className="text-white">{job.title}</p>
+          <p className="text-white text-[12px]">{job.companyName}</p>
         </div>
       </div>
       <hr className="h-0.5 text-white" />
       <div className="flex gap-4">
-        <p className="text-white text-[12px] flex gap-1">
-          <span>$</span>1,00,000
-        </p>
+        <p className="text-white text-[12px] flex gap-1">{job.salary}</p>
         <div className="text-white text-[12px] flex gap-2 items-center relative">
-          <div className="relative h-3 w-3">
-            <img
-              src={globe}
-              alt=""
-              className="absolute h-3 w-3 z-10 animate-ping"
-            />
+          <div className="relative h-3 w-3 flex items-center">
+            {job.location === 'Worldwide' ? (
+              <img
+                src={globe}
+                alt=""
+                className="absolute h-3 w-3 z-10 animate-ping"
+              />
+            ) : (
+              <MapPin size={18} />
+            )}
           </div>
-          WorldWide
+          {job.location}
         </div>
       </div>
       <button
@@ -63,6 +67,23 @@ function AnimatedJobCards() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false });
   const controls = useAnimation();
+
+  const [jobList, setJobsList] = useState([]);
+
+  useEffect(() => {
+    const getJobs = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/jobs`
+        );
+        setJobsList(response.data.sortedJobs);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
+    };
+
+    getJobs();
+  }, []);
 
   const cardVariants = useMemo(() => {
     return {
@@ -111,7 +132,7 @@ function AnimatedJobCards() {
         variants={cardVariants}
         className="absolute bottom-[-10px] right-[-10px] z-20"
       >
-        <JobCard />
+        {jobList[0] && <JobCard job={jobList[0]} />}
       </motion.div>
       <motion.div
         custom={1}
@@ -120,7 +141,7 @@ function AnimatedJobCards() {
         variants={cardVariants}
         className="absolute top-[-10px] right-[-70px] z-10"
       >
-        <JobCard />
+        {jobList[1] && <JobCard job={jobList[1]} />}
       </motion.div>
       <motion.div
         custom={2}
@@ -129,7 +150,7 @@ function AnimatedJobCards() {
         variants={cardVariants}
         className="absolute bottom-[-40px] right-[190px] z-10"
       >
-        <JobCard />
+        {jobList[2] && <JobCard job={jobList[2]} />}
       </motion.div>
       <motion.div
         custom={3}
@@ -138,7 +159,7 @@ function AnimatedJobCards() {
         variants={cardVariants}
         className="absolute bottom-[80px] right-[100px]"
       >
-        <JobCard />
+        {jobList[3] && <JobCard job={jobList[3]} />}
       </motion.div>
     </motion.div>
   );

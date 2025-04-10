@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
 import JobCard from '../components/cards/JobCard';

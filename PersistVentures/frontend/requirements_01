@@ -1,0 +1,7 @@
+Show the job details on Job Model from backend
+Save job id to user collection when user applies for a job
+Send email notifications when user applies for a job
+Add cron job for job expiry
+Update Candidates page with data from DB
+Create a new component to display userProfile
+Update Login and Sign Up Page, show two sections - Company info on left and login form on right
