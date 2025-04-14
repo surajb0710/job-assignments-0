@@ -38,7 +38,7 @@ const JobModel = () => {
       }
     };
 
-    getJobDetails(jobId);
+    jobId !== '' && getJobDetails(jobId);
   }, [jobId]);
 
   const handleCloseBtnClick = () => {
