@@ -16,7 +16,7 @@
   "crons": [
     {
       "path": "/api/cronjobs/send-job-expiry-email",
-      "schedule": "15 14 * * *"
+      "schedule": "15 15 * * *"
     }
   ]
 }
