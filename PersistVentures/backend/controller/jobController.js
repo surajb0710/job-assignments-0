@@ -18,7 +18,6 @@ const getJobs = async (req, res) => {
 };
 
 const getJobById = async (req, res) => {
-  // console.log('-----req----', req.body);
   try {
     const { _id } = req.body;
 
@@ -26,14 +25,9 @@ const getJobById = async (req, res) => {
       return;
     }
 
-    console.log('-----currentJobId----', _id);
-
-    // let jobObjectid = new ObjectId(jobId);
-
     const currentJob = await jobModel.findById(_id);
 
     res.json({ success: true, currentJob });
-    console.log('-----currentJob------', currentJob);
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

@@ -56,9 +56,9 @@ const JobCard = ({
   const handleViewDetailsBtnClick = () => {
     dispatch(toggleModel());
     dispatch(setCurrentJobId(job._id));
-    // localStorage.setItem('currentJobId', job._id);
-    // console.log('--------job-------', job);
   };
+
+  console.log('Auth User', authUser);
 
   return (
     <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex gap-3 bg-gradient">

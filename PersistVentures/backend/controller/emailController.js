@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { userModel } from '../models/userModel.js';
 
 dotenv.config();
 
@@ -38,6 +39,20 @@ const sendJobApplicationEmail = async (req, res) => {
   const { job, authUser } = req.body;
 
   if (!job.email) return res.status(400).json({ message: 'Email is required' });
+
+  console.log('------authUser.email----', authUser.email);
+
+  const user = await userModel.findOne({ email: authUser.email });
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  if (!user.jobsApplied.includes(job._id)) {
+    user.jobsApplied.push(job._id);
+
+    await user.save();
+  }
 
   try {
     const __filename = fileURLToPath(import.meta.url);
