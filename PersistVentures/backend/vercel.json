@@ -12,5 +12,11 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
+  ],
+  "crons": [
+    {
+      "path": "/cronjobs/send-job-expiry-email.js",
+      "schedule": "30 12 * * *"
+    }
   ]
 }

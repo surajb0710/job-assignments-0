@@ -2,6 +2,7 @@ import express from 'express';
 import {
   sendInvitationForJobEmail,
   sendJobApplicationEmail,
+  sendJobExpiryEmail,
 } from '../controller/emailController.js';
 import authMiddleware from '../middleware/auth.js';
 
@@ -17,5 +18,6 @@ notificationRouter.post(
   authMiddleware,
   sendInvitationForJobEmail
 );
+notificationRouter.post('/jobexpirynotification', sendJobExpiryEmail);
 
 export default notificationRouter;

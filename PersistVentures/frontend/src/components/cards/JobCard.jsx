@@ -109,7 +109,7 @@ const JobCard = ({
           View Details
         </button>
         {!isRecruiter &&
-          !authUser.jobsApplied.includes(job._id) &&
+          !authUser.jobsApplied?.includes(job._id) &&
           !jobApplied && (
             <button
               onClick={handleApplyNowBtnClick}

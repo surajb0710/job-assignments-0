@@ -1,6 +1,6 @@
 Show the job details on Job Model from backend.....DONE
-Save job id to user collection when user applies for a job
-Send email notifications when user applies for a job
+Save job id to user collection when user applies for a job.....DONE
+Send email notifications to user when user applies for a job
 Add cron job for job expiry
 Update Candidates page with data from DB
 Create a new component to display userProfile

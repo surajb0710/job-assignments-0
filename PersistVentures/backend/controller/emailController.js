@@ -4,6 +4,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { userModel } from '../models/userModel.js';
+import { getJobsExpiringTomorrow } from './jobController.js';
 
 dotenv.config();
 
@@ -108,4 +109,44 @@ const sendJobApplicationEmail = async (req, res) => {
   }
 };
 
-export { sendInvitationForJobEmail, sendJobApplicationEmail };
+const sendJobExpiryEmail = async (req, res) => {
+  try {
+    const expiringJobsArray = await getJobsExpiringTomorrow();
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(path.dirname(__filename));
+    const templatePath = path.join(
+      __dirname,
+      'templates',
+      'jobExpiryTemplate.html'
+    );
+    const template = await fs.readFile(templatePath, 'utf-8');
+
+    for (const job of expiringJobsArray) {
+      let emailHtml = template;
+
+      emailHtml = emailHtml.replaceAll('[jobTitle]', job.title);
+      emailHtml = emailHtml.replaceAll('[companyName]', job.companyName);
+
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: job.email,
+        subject: `Job Expiry Notice: ${job.title} is expiring soon`,
+        html: emailHtml,
+      });
+    }
+
+    res.json({ success: true, message: 'Expiry emails sent successfully' });
+    console.log('-----Job expiry email has been sent-----');
+  } catch (error) {
+    console.error('❌ Error sending emails:', error);
+    res
+      .status(500)
+      .json({ success: false, message: 'Error sending expiry emails' });
+  }
+};
+export {
+  sendInvitationForJobEmail,
+  sendJobApplicationEmail,
+  sendJobExpiryEmail,
+};

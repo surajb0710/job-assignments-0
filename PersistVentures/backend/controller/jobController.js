@@ -17,6 +17,36 @@ const getJobs = async (req, res) => {
   }
 };
 
+const getJobsExpiringTomorrow = async (req, res) => {
+  try {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Set time range for the whole day of tomorrow
+    const startOfTomorrow = new Date(tomorrow.setHours(0, 0, 0, 0));
+    const endOfTomorrow = new Date(tomorrow.setHours(23, 59, 59, 999));
+
+    const jobsExpiringTomorrow = await jobModel
+      .find({
+        expiryDate: {
+          $gte: startOfTomorrow,
+          $lte: endOfTomorrow,
+        },
+      })
+      .sort({ expiryDate: 1 });
+
+    res.json({ success: true, jobs: jobsExpiringTomorrow });
+
+    console.log('----jobsExpiringTomorrow----', jobsExpiringTomorrow);
+
+    return jobsExpiringTomorrow;
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 const getJobById = async (req, res) => {
   try {
     const { _id } = req.body;
@@ -89,4 +119,11 @@ const deleteJobPost = async (req, res) => {
   }
 };
 
-export { getJobs, addJobPost, deleteJobPost, updateJobPost, getJobById };
+export {
+  getJobs,
+  addJobPost,
+  deleteJobPost,
+  updateJobPost,
+  getJobById,
+  getJobsExpiringTomorrow,
+};
