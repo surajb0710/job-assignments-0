@@ -16,6 +16,8 @@ const JobCard = ({
   const [apply, setApply] = useState(false);
   const [jobApplied, setJobApplied] = useState(false);
 
+  console.log('-------authUser.jobsApplied---', authUser.jobsApplied);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

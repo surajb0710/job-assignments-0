@@ -45,11 +45,6 @@ const JobModel = () => {
     dispatch(toggleModel());
   };
 
-  console.log(
-    '-------currentJob.responsibilities-------',
-    currentJob.responsibilities
-  );
-
   return (
     <AnimatePresence>
       {showJobModel && (
