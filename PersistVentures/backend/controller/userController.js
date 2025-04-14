@@ -119,6 +119,16 @@ const registerUser = async (req, res) => {
   }
 };
 
+const getAppliedJobsArray = async (req, res) => {
+  {
+    try {
+      res.json({ success: true, user: req.user.jobsApplied });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+};
+
 const getSkills = async (req, res) => {
   res.json(skillEnum);
 };

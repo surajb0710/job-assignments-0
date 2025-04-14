@@ -76,7 +76,10 @@ const sendJobApplicationEmail = async (req, res) => {
     jobApplication = jobApplication.replaceAll('[skills]', authUser.skills);
     jobApplication = jobApplication.replaceAll('[fullName]', authUser.fullName);
     jobApplication = jobApplication.replaceAll('[email]', authUser.email);
-    jobApplication = jobApplication.ma('[phoneNumber]', authUser.phoneNumber);
+    jobApplication = jobApplication.replaceAll(
+      '[phoneNumber]',
+      authUser.phoneNumber
+    );
     jobApplication = jobApplication.replaceAll(
       '[linkedInUrl]',
       authUser.linkedInUrl

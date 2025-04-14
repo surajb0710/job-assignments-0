@@ -14,6 +14,7 @@ const JobCard = ({
   setApiSuccess,
 }) => {
   const [apply, setApply] = useState(false);
+  const [jobApplied, setJobApplied] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const JobCard = ({
       navigate('/login');
     } else {
       setApply(true);
+      setJobApplied(true);
     }
   };
 
@@ -57,8 +59,6 @@ const JobCard = ({
     dispatch(toggleModel());
     dispatch(setCurrentJobId(job._id));
   };
-
-  console.log('Auth User', authUser);
 
   return (
     <div className="p-5 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] flex gap-3 bg-gradient">
@@ -108,14 +108,16 @@ const JobCard = ({
         >
           View Details
         </button>
-        {!isRecruiter && (
-          <button
-            onClick={handleApplyNowBtnClick}
-            className="w-full glow-border text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
-          >
-            Apply Now
-          </button>
-        )}
+        {!isRecruiter &&
+          !authUser.jobsApplied.includes(job._id) &&
+          !jobApplied && (
+            <button
+              onClick={handleApplyNowBtnClick}
+              className="w-full glow-border text-base px-5 py-2 rounded-2xl shadow-[inset_0px_0px_5px_1px_#f7fafc90] cursor-pointer"
+            >
+              Apply Now
+            </button>
+          )}
       </div>
     </div>
   );
