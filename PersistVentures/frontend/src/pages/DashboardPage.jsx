@@ -13,9 +13,7 @@ const DashboardPage = () => {
   const [authUser, setAuthUser] = useState({});
   const [skillsArray, setSkillsArray] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [showDashboard, setShowDashboard] = useState(true);
-  const [showProfile, setShowProfile] = useState(false);
-
+  const [currentSection, setCurrentSection] = useState('dashboard');
   const [isApplying, setIsApplying] = useState(false);
   const [apiSuccess, setApiSuccess] = useState(false);
 
@@ -48,18 +46,67 @@ const DashboardPage = () => {
 
   useEffect(() => {
     const getJobs = async () => {
+      const token = localStorage.getItem('authToken');
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/jobs`
+          `${import.meta.env.VITE_BACKEND_URL}/recommendedJobs`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        setJobsList(response.data.sortedJobs);
+        setJobsList(response.data.recommendedJobs);
       } catch (error) {
         console.error('Error fetching skills:', error);
       }
     };
 
-    getJobs();
-  }, [showJobPostModel]);
+    currentSection === 'dashboard' && getJobs();
+  }, [showJobPostModel, currentSection]);
+
+  useEffect(() => {
+    const getJobs = async () => {
+      const token = localStorage.getItem('authToken');
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/appliedJobs`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setJobsList(response.data.appliedJobs);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
+    };
+
+    currentSection === 'appliedJobs' && getJobs();
+  }, [showJobPostModel, currentSection]);
+
+  useEffect(() => {
+    const getJobs = async () => {
+      const token = localStorage.getItem('authToken');
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/savedJobs`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setJobsList(response.data.savedJobs);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
+    };
+
+    currentSection === 'savedJobs' && getJobs();
+  }, [showJobPostModel, currentSection]);
 
   useEffect(() => {
     const getAuthUser = async () => {
@@ -144,16 +191,6 @@ const DashboardPage = () => {
     formik.setFieldValue('skills', selectedList);
   };
 
-  const handleDashboardClick = () => {
-    setShowDashboard(true);
-    setShowProfile(false);
-  };
-
-  const handleProfielClick = () => {
-    setShowDashboard(false);
-    setShowProfile(true);
-  };
-
   const resetApiSuccess = () => {
     setApiSuccess(false);
     setIsApplying(false);
@@ -164,17 +201,34 @@ const DashboardPage = () => {
       <div className="flex-1/4 h-max py-10 px-10 flex flex-col gap-5 rounded-2xl shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
         <p
           className={`p-2 rounded-lg cursor-pointer ${
-            showDashboard ? 'bg-[#9793b5]' : ''
+            currentSection === 'dashboard' ? 'bg-[#9793b5]' : ''
           }`}
-          onClick={handleDashboardClick}
+          onClick={() => setCurrentSection('dashboard')}
         >
           Dashboard
         </p>
+
         <p
           className={`p-2 rounded-lg cursor-pointer ${
-            showProfile ? 'bg-[#9793b5]' : ''
+            currentSection === 'appliedJobs' ? 'bg-[#9793b5]' : ''
           }`}
-          onClick={handleProfielClick}
+          onClick={() => setCurrentSection('appliedJobs')}
+        >
+          Applied Jobs
+        </p>
+        <p
+          className={`p-2 rounded-lg cursor-pointer ${
+            currentSection === 'savedJobs' ? 'bg-[#9793b5]' : ''
+          }`}
+          onClick={() => setCurrentSection('savedJobs')}
+        >
+          Saved Jobs
+        </p>
+        <p
+          className={`p-2 rounded-lg cursor-pointer ${
+            currentSection === 'userProfile' ? 'bg-[#9793b5]' : ''
+          }`}
+          onClick={() => setCurrentSection('userProfile')}
         >
           User Profile
         </p>
@@ -192,7 +246,23 @@ const DashboardPage = () => {
         apiSuccess={apiSuccess}
         resetApiSuccess={resetApiSuccess}
       />
-      {showDashboard && (
+      {currentSection === 'dashboard' && (
+        <div className="flex-3/4 flex flex-col gap-5">
+          <h2 className="text-2xl">Recommended Jobs</h2>
+          {jobsList.length > 0 &&
+            jobsList.map((job) => (
+              <JobCard
+                job={job}
+                key={job._id}
+                authUser={authUser}
+                isRecruiter={formik.values.isRecruiter}
+                setIsApplying={setIsApplying}
+                setApiSuccess={setApiSuccess}
+              />
+            ))}
+        </div>
+      )}
+      {currentSection === 'appliedJobs' && (
         <div className="flex-3/4 flex flex-col gap-5">
           {jobsList.length > 0 &&
             jobsList.map((job) => (
@@ -207,7 +277,22 @@ const DashboardPage = () => {
             ))}
         </div>
       )}
-      {showProfile && (
+      {currentSection === 'savedJobs' && (
+        <div className="flex-3/4 flex flex-col gap-5">
+          {jobsList.length > 0 &&
+            jobsList.map((job) => (
+              <JobCard
+                job={job}
+                key={job._id}
+                authUser={authUser}
+                isRecruiter={formik.values.isRecruiter}
+                setIsApplying={setIsApplying}
+                setApiSuccess={setApiSuccess}
+              />
+            ))}
+        </div>
+      )}
+      {currentSection === 'userProfile' && (
         <div className="flex-3/4 flex flex-col gap-5">
           <p className="mb-2 text-xl font-normal">Personal information</p>
           {authUser.email !== '' && (

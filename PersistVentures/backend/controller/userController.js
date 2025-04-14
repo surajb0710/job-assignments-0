@@ -10,6 +10,8 @@ const getAuthUserProfile = async (req, res) => {
     try {
       res.json({ success: true, user: req.user });
     } catch (error) {
+      console.log(error);
+
       res.status(500).json({ success: false, message: error.message });
     }
   }
@@ -116,16 +118,6 @@ const registerUser = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
-  }
-};
-
-const getAppliedJobsArray = async (req, res) => {
-  {
-    try {
-      res.json({ success: true, user: req.user.jobsApplied });
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
-    }
   }
 };
 

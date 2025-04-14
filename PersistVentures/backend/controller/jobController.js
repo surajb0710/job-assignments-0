@@ -1,4 +1,5 @@
 import jobModel from '../models/jobModel.js';
+import { getAuthUserProfile } from './userController.js';
 
 const getJobs = async (req, res) => {
   try {
@@ -17,7 +18,79 @@ const getJobs = async (req, res) => {
   }
 };
 
+const getRecommendedJobs = async (req, res) => {
+  try {
+    const jobs = await jobModel.find({});
+
+    const authUser = await req.user;
+
+    const sortedJobs = jobs.slice().sort((a, b) => {
+      const dateA = new Date(a.updatedAt);
+      const dateB = new Date(b.updatedAt);
+      return dateB - dateA;
+    });
+
+    const recommendedJobs = sortedJobs.filter((job) => {
+      const match = authUser.skills.some((skill) => job.skills.includes(skill));
+      return match;
+    });
+
+    res.json({ success: true, recommendedJobs });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const getSavedJobs = async (req, res) => {
+  try {
+    const authUser = await req.user;
+
+    const jobs = await jobModel.find({});
+
+    const sortedJobs = jobs.slice().sort((a, b) => {
+      const dateA = new Date(a.updatedAt);
+      const dateB = new Date(b.updatedAt);
+      return dateB - dateA;
+    });
+
+    const savedJobs = sortedJobs.filter((job) => {
+      return authUser.jobsSaved.includes(job._id);
+    });
+
+    res.json({ success: true, savedJobs });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const getAppliedJobs = async (req, res) => {
+  try {
+    const authUser = await req.user;
+
+    const jobs = await jobModel.find({});
+
+    const sortedJobs = jobs.slice().sort((a, b) => {
+      const dateA = new Date(a.updatedAt);
+      const dateB = new Date(b.updatedAt);
+      return dateB - dateA;
+    });
+
+    const appliedJobs = sortedJobs.filter((job) => {
+      return authUser.jobsApplied.includes(job._id);
+    });
+
+    res.json({ success: true, appliedJobs });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 const getJobsExpiringTomorrow = async (req, res) => {
+  console.log('-----getJobsExpiringTomorrow----');
+
   try {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -58,6 +131,7 @@ const getJobById = async (req, res) => {
     const currentJob = await jobModel.findById(_id);
 
     res.json({ success: true, currentJob });
+    return currentJob;
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -126,4 +200,7 @@ export {
   updateJobPost,
   getJobById,
   getJobsExpiringTomorrow,
+  getRecommendedJobs,
+  getSavedJobs,
+  getAppliedJobs,
 };

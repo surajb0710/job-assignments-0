@@ -88,6 +88,13 @@ const userSchema = new mongoose.Schema(
         },
       ],
     },
+    jobsSaved: {
+      type: [
+        {
+          type: String,
+        },
+      ],
+    },
     experience: { type: String, require: true },
     professionalSummary: { type: String },
     isRecruiter: { type: Boolean },
