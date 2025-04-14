@@ -31,7 +31,9 @@ const getRecommendedJobs = async (req, res) => {
     });
 
     const recommendedJobs = sortedJobs.filter((job) => {
-      const match = authUser.skills.some((skill) => job.skills.includes(skill));
+      const match =
+        authUser.skills.some((skill) => job.skills.includes(skill)) &&
+        !authUser.jobsApplied.includes(job._id);
       return match;
     });
 

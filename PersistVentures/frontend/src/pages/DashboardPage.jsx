@@ -63,7 +63,7 @@ const DashboardPage = () => {
     };
 
     currentSection === 'dashboard' && getJobs();
-  }, [showJobPostModel, currentSection]);
+  }, [showJobPostModel, currentSection, isApplying]);
 
   useEffect(() => {
     const getJobs = async () => {
