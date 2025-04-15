@@ -107,6 +107,7 @@ const JobListingPage = () => {
               },
             }
           );
+
           setAuthUser(response.data.user);
         }
       } catch (error) {
@@ -219,16 +220,17 @@ const JobListingPage = () => {
         resetApiSuccess={resetApiSuccess}
       />
       <div className="flex-3/4 flex flex-col gap-5 ml-110 h-max my-10">
-        {filteredJobs.map((job, index) => (
-          <JobCard
-            job={job}
-            key={index}
-            applicantEmail={authUser.email}
-            isRecruiter={authUser.isRecruiter}
-            setIsApplying={setIsApplying}
-            setApiSuccess={setApiSuccess}
-          />
-        ))}
+        {authUser &&
+          filteredJobs.map((job, index) => (
+            <JobCard
+              job={job}
+              key={index}
+              authUser={authUser}
+              isRecruiter={authUser.isRecruiter}
+              setIsApplying={setIsApplying}
+              setApiSuccess={setApiSuccess}
+            />
+          ))}
       </div>
     </main>
   );

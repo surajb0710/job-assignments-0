@@ -198,7 +198,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex w-full mt-10 gap-10">
-      <div className="flex-1/4 h-max py-10 px-10 flex flex-col gap-5 rounded-2xl shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
+      <div className="w-[25%] fixed h-max py-10 px-10 flex flex-col gap-5 rounded-2xl shadow-[inset_0px_0px_7px_1px_#f7fafc90]">
         <p
           className={`p-2 rounded-lg cursor-pointer ${
             currentSection === 'dashboard' ? 'bg-[#9793b5]' : ''
@@ -246,220 +246,222 @@ const DashboardPage = () => {
         apiSuccess={apiSuccess}
         resetApiSuccess={resetApiSuccess}
       />
-      {currentSection === 'dashboard' && (
-        <div className="flex-3/4 flex flex-col gap-5">
-          <h2 className="text-2xl">Recommended Jobs</h2>
-          {jobsList.length > 0 &&
-            jobsList.map((job) => (
-              <JobCard
-                job={job}
-                key={job._id}
-                authUser={authUser}
-                isRecruiter={formik.values.isRecruiter}
-                setIsApplying={setIsApplying}
-                setApiSuccess={setApiSuccess}
-              />
-            ))}
-        </div>
-      )}
-      {currentSection === 'appliedJobs' && (
-        <div className="flex-3/4 flex flex-col gap-5">
-          {jobsList.length > 0 &&
-            jobsList.map((job) => (
-              <JobCard
-                job={job}
-                key={job._id}
-                authUser={authUser}
-                isRecruiter={formik.values.isRecruiter}
-                setIsApplying={setIsApplying}
-                setApiSuccess={setApiSuccess}
-              />
-            ))}
-        </div>
-      )}
-      {currentSection === 'savedJobs' && (
-        <div className="flex-3/4 flex flex-col gap-5">
-          {jobsList.length > 0 &&
-            jobsList.map((job) => (
-              <JobCard
-                job={job}
-                key={job._id}
-                authUser={authUser}
-                isRecruiter={formik.values.isRecruiter}
-                setIsApplying={setIsApplying}
-                setApiSuccess={setApiSuccess}
-              />
-            ))}
-        </div>
-      )}
-      {currentSection === 'userProfile' && (
-        <div className="flex-3/4 flex flex-col gap-5">
-          <p className="mb-2 text-xl font-normal">Personal information</p>
-          {authUser.email !== '' && (
-            <form
-              className="grid grid-cols-2 grid-rows-[maxContent_maxContent_maxContent_maxContent] gap-y-3 gap-x-5"
-              onSubmit={formik.handleSubmit}
-            >
-              <div>
-                <label htmlFor="fullName">Full Name</label>
-                <br />
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  placeholder="Enter Full Name"
-                  onChange={formik.handleChange}
-                  value={formik.values.fullName}
-                  onBlur={formik.handleBlur}
-                  className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+      <div className="ml-[30%] w-full min-h-screen">
+        {currentSection === 'dashboard' && (
+          <div className="flex flex-col gap-5">
+            <h2 className="text-2xl">Recommended Jobs</h2>
+            {jobsList.length > 0 &&
+              jobsList.map((job) => (
+                <JobCard
+                  job={job}
+                  key={job._id}
+                  authUser={authUser}
+                  isRecruiter={formik.values.isRecruiter}
+                  setIsApplying={setIsApplying}
+                  setApiSuccess={setApiSuccess}
                 />
-
-                {formik.touched.fullName && (
-                  <p className="errorMessage">{formik.errors.fullName}</p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="fullName">Phone Number</label>
-                <br />
-                <input
-                  type="number"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Enter Phone Number"
-                  onChange={formik.handleChange}
-                  value={formik.values.phoneNumber}
-                  onBlur={formik.handleBlur}
-                  className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+              ))}
+          </div>
+        )}
+        {currentSection === 'appliedJobs' && (
+          <div className="flex-3/4 flex flex-col gap-5">
+            {jobsList.length > 0 &&
+              jobsList.map((job) => (
+                <JobCard
+                  job={job}
+                  key={job._id}
+                  authUser={authUser}
+                  isRecruiter={formik.values.isRecruiter}
+                  setIsApplying={setIsApplying}
+                  setApiSuccess={setApiSuccess}
                 />
-
-                {formik.touched.phoneNumber && (
-                  <p className="errorMessage">{formik.errors.phoneNumber}</p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="email">Email Address</label>
-                <br />
-
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter Email Address"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.email}
-                  className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+              ))}
+          </div>
+        )}
+        {currentSection === 'savedJobs' && (
+          <div className="flex-3/4 flex flex-col gap-5">
+            {jobsList.length > 0 &&
+              jobsList.map((job) => (
+                <JobCard
+                  job={job}
+                  key={job._id}
+                  authUser={authUser}
+                  isRecruiter={formik.values.isRecruiter}
+                  setIsApplying={setIsApplying}
+                  setApiSuccess={setApiSuccess}
                 />
-
-                {formik.touched.email && (
-                  <p className="errorMessage">{formik.errors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="experience">Experience</label>
-                <br />
-
-                <input
-                  type="text"
-                  id="experience"
-                  name="experience"
-                  placeholder="Enter Experince"
-                  onChange={formik.handleChange}
-                  value={formik.values.experience}
-                  onBlur={formik.handleBlur}
-                  className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
-                />
-
-                {formik.touched.experience && (
-                  <p className="errorMessage">{formik.errors.experience}</p>
-                )}
-              </div>
-              <div className="col-span-2">
-                <label htmlFor="skills">Skills</label>
-                <br />
-
-                <Multiselect
-                  options={skillsArray}
-                  selectedValues={selectedSkills}
-                  onSelect={onSelectSkills}
-                  onRemove={onRemoveSkills}
-                  displayValue="skills"
-                  className="customMultiselect shadow-[inset_0px_0px_5px_1px_#f7fafc90] px-4 py-3 rounded-xl mt-2"
-                  avoidHighlightFirstOption={true}
-                  style={{
-                    searchBox: {
-                      border: 'none', // Corrected: Added quotes around 'none'
-                      fontSize: '14px', // Corrected: Added quotes around '10px'
-                    },
-                    chips: {
-                      // To change css chips(Selected options)
-                      background: '#9793b5',
-                    },
-                    optionContainer: {
-                      // To change css for option container
-                      border: '2px solid',
-                      background: '#bbafe8',
-                    },
-                    option: {
-                      // To change css for dropdown options
-                      color: '#5c5482',
-                    },
-                  }}
-                />
-
-                {formik.touched.skills && (
-                  <p className="errorMessage">{formik.errors.skills}</p>
-                )}
-              </div>
-              <div className="w-max flex gap-2 items-center px-4 py-3 mt-2 rounded-xl shadow-[inset_0px_0px_5px_1px_#f7fafc90]">
-                <input
-                  type="checkbox"
-                  id="isRecruiter"
-                  name="isRecruiter"
-                  onChange={formik.handleChange}
-                  value={formik.values.isRecruiter}
-                  onBlur={formik.handleBlur}
-                  className="w-5 h-5"
-                  checked={formik.values.isRecruiter}
-                />
-                <label htmlFor="recruiter">Are you a recruiter ?</label>
-              </div>
-              <div className="col-span-2">
-                <label htmlFor="professionalSummary">
-                  Professional Summary
-                </label>
-                <br />
-
-                <textarea
-                  type="text"
-                  id="professionalSummary"
-                  name="professionalSummary"
-                  placeholder="Enter Professional Summary"
-                  onChange={formik.handleChange}
-                  value={formik.values.professionalSummary}
-                  onBlur={formik.handleBlur}
-                  rows={5}
-                  className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
-                />
-
-                {formik.touched.professionalSummary && (
-                  <p className="errorMessage">
-                    {formik.errors.professionalSummary}
-                  </p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                className="w-full col-span-2 self-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-2 rounded-xl"
+              ))}
+          </div>
+        )}
+        {currentSection === 'userProfile' && (
+          <div className="flex-3/4 flex flex-col gap-5">
+            <p className="mb-2 text-xl font-normal">Personal information</p>
+            {authUser.email !== '' && (
+              <form
+                className="grid grid-cols-2 grid-rows-[maxContent_maxContent_maxContent_maxContent] gap-y-3 gap-x-5"
+                onSubmit={formik.handleSubmit}
               >
-                Submit
-              </button>
-            </form>
-          )}
-        </div>
-      )}
+                <div>
+                  <label htmlFor="fullName">Full Name</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Enter Full Name"
+                    onChange={formik.handleChange}
+                    value={formik.values.fullName}
+                    onBlur={formik.handleBlur}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+
+                  {formik.touched.fullName && (
+                    <p className="errorMessage">{formik.errors.fullName}</p>
+                  )}
+                </div>
+                <div>
+                  <label htmlFor="fullName">Phone Number</label>
+                  <br />
+                  <input
+                    type="number"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter Phone Number"
+                    onChange={formik.handleChange}
+                    value={formik.values.phoneNumber}
+                    onBlur={formik.handleBlur}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+
+                  {formik.touched.phoneNumber && (
+                    <p className="errorMessage">{formik.errors.phoneNumber}</p>
+                  )}
+                </div>
+                <div>
+                  <label htmlFor="email">Email Address</label>
+                  <br />
+
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Email Address"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+
+                  {formik.touched.email && (
+                    <p className="errorMessage">{formik.errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="experience">Experience</label>
+                  <br />
+
+                  <input
+                    type="text"
+                    id="experience"
+                    name="experience"
+                    placeholder="Enter Experince"
+                    onChange={formik.handleChange}
+                    value={formik.values.experience}
+                    onBlur={formik.handleBlur}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+
+                  {formik.touched.experience && (
+                    <p className="errorMessage">{formik.errors.experience}</p>
+                  )}
+                </div>
+                <div className="col-span-2">
+                  <label htmlFor="skills">Skills</label>
+                  <br />
+
+                  <Multiselect
+                    options={skillsArray}
+                    selectedValues={selectedSkills}
+                    onSelect={onSelectSkills}
+                    onRemove={onRemoveSkills}
+                    displayValue="skills"
+                    className="customMultiselect shadow-[inset_0px_0px_5px_1px_#f7fafc90] px-4 py-3 rounded-xl mt-2"
+                    avoidHighlightFirstOption={true}
+                    style={{
+                      searchBox: {
+                        border: 'none', // Corrected: Added quotes around 'none'
+                        fontSize: '14px', // Corrected: Added quotes around '10px'
+                      },
+                      chips: {
+                        // To change css chips(Selected options)
+                        background: '#9793b5',
+                      },
+                      optionContainer: {
+                        // To change css for option container
+                        border: '2px solid',
+                        background: '#bbafe8',
+                      },
+                      option: {
+                        // To change css for dropdown options
+                        color: '#5c5482',
+                      },
+                    }}
+                  />
+
+                  {formik.touched.skills && (
+                    <p className="errorMessage">{formik.errors.skills}</p>
+                  )}
+                </div>
+                <div className="w-max flex gap-2 items-center px-4 py-3 mt-2 rounded-xl shadow-[inset_0px_0px_5px_1px_#f7fafc90]">
+                  <input
+                    type="checkbox"
+                    id="isRecruiter"
+                    name="isRecruiter"
+                    onChange={formik.handleChange}
+                    value={formik.values.isRecruiter}
+                    onBlur={formik.handleBlur}
+                    className="w-5 h-5"
+                    checked={formik.values.isRecruiter}
+                  />
+                  <label htmlFor="recruiter">Are you a recruiter ?</label>
+                </div>
+                <div className="col-span-2">
+                  <label htmlFor="professionalSummary">
+                    Professional Summary
+                  </label>
+                  <br />
+
+                  <textarea
+                    type="text"
+                    id="professionalSummary"
+                    name="professionalSummary"
+                    placeholder="Enter Professional Summary"
+                    onChange={formik.handleChange}
+                    value={formik.values.professionalSummary}
+                    onBlur={formik.handleBlur}
+                    rows={5}
+                    className="w-full shadow-[inset_0px_0px_5px_1px_#f7fafc90] text-sm px-4 py-3 mt-2 rounded-xl"
+                  />
+
+                  {formik.touched.professionalSummary && (
+                    <p className="errorMessage">
+                      {formik.errors.professionalSummary}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full col-span-2 self-center cursor-pointer text-base bg-[#7e6bd2] px-5 py-2 rounded-xl"
+                >
+                  Submit
+                </button>
+              </form>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
